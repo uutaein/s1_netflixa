@@ -53,8 +53,8 @@ export default {
         },
         {
           icon: 'mdi-information',
-          text: '내 계정'
-          // route: '/about'
+          text: '내 계정',
+          route: '/account'
         }
       ]
     }
