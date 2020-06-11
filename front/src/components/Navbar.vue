@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar color="indigo accent-2" app flat>
+    <v-app-bar color="#625265" app flat>
       <v-app-bar-nav-icon id="drawerIcon" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase white--text">
         <span class="font-weight-light">영화</span>
@@ -8,7 +8,7 @@
       </v-toolbar-title>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" color="indigo accent-2">
+    <v-navigation-drawer app v-model="drawer" color="#B59AC5">
       <v-layout column align-center>
         <v-flex class="my-5">
         </v-flex>

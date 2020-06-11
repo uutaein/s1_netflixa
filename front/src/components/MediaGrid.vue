@@ -19,7 +19,7 @@
           <!-- <v-card-text>{{movie.overview}}</v-card-text> -->
           <v-progress-circular
             size="90"
-            color="white"
+            color="#B6DAE4"
             rotate="-90"
             width="8"
             :value="movie.vote_average * 10"
@@ -42,13 +42,13 @@ export default {
 
 <style scoped>
   .v-card:hover {
-    background: #536dfe;
+    background: #E6F0F8;
   }
   .v-card:hover #synopsis {
     /* background: #303030; */
-    background: #303030;
+    background: #FCEEFB;
   }
   #synopsis {
-    background: #536dfe;
+    background: #625265;
   }
 </style>
