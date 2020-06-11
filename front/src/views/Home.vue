@@ -36,12 +36,12 @@ export default {
   },
   methods: {
     init () {
-      const key = process.env.VUE_APP_MOVIEKEY
+      const key = process.env.VUE_APP_MOVIE_KEY
       axios
         .get(
           'https://api.themoviedb.org/3/movie/now_playing?api_key=' +
 
-              '714dd2d169d0ac88cf9e118b870d7c1c' +
+              key +
               '&language=ko-KR&page=' +
               this.page
         )
