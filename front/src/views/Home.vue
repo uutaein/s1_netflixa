@@ -9,7 +9,7 @@
     ></media-nav>
     <media-grid :movies="movies" :imageURL="imageURL"></media-grid>
     <div class="text-center" v-if="showPagination">
-      <v-pagination color="primary" v-model="page" :length="3" :value="page"></v-pagination>
+      <v-pagination color="secondary" v-model="page" :length="3" :value="page"></v-pagination>
     </div>
   </v-container>
 </template>

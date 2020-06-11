@@ -13,7 +13,7 @@
             <v-btn
               v-on="on"
               small
-              color="primary"
+              color="secondary"
               class="criteriaSelector mx-3 mt-3"
               @click="sortBy('popularity')"
             >
@@ -29,7 +29,7 @@
             <v-btn
               v-on="on"
               small
-              color="primary"
+              color="secondary"
               class="criteriaSelector mx-3 mt-3"
               @click="sortBy('vote_average')"
             >
@@ -44,7 +44,7 @@
             <v-btn
               v-on="on"
               small
-              color="primary"
+              color="secondary"
               class="criteriaSelector mx-3 mt-3"
               @click="sortBy('release_date')"
             >
