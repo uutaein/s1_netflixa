@@ -15,7 +15,7 @@
       </v-layout>
 
       <v-list flat>
-        <v-list-item v-for="link in links" :key="link.route" link :to="link.route" exact="true">
+        <v-list-item v-for="link in links" :key="link.route" link :to="link.route">
           <v-list-item-icon>
             <v-icon class="white--text">{{link.icon}}</v-icon>
           </v-list-item-icon>
