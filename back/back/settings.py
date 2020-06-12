@@ -40,6 +40,13 @@ INSTALLED_APPS = [
 
     #DRF
     'rest_framework',
+    'rest_framework.authtoken'
+
+    #rest_auth + allauth
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 
     #My Apps
     'accounts',
@@ -127,3 +134,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# django sites app setting
+SITE_ID = 1
+
+# DRF auth settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
