@@ -18,6 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('reviews/', include('reviews.urls')),
+    path('movies/', include('movies.urls')),
 
     #rest_auth
     path('rest-auth/', include('rest_auth.urls')),
