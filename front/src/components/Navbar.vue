@@ -65,6 +65,11 @@ export default {
           icon: 'mdi-account-edit',
           text: '계정 만들기',
           route: '/signup'
+        },
+        {
+          icon: 'mdi-grease-pencil',
+          text: '리뷰 남기기',
+          route: '/createreview'
         }
       ]
     }
