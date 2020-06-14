@@ -52,7 +52,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="signup" color="primary">Signup</v-btn>
+                <v-btn @click="signup({signupData})" color="primary">Signup</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -63,6 +63,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+const SERVER_URL = 'http://localhost:8000'
+
 export default {
   name: 'SignupView',
   data () {
@@ -75,8 +78,18 @@ export default {
     }
   },
   methods: {
-    signup () {
-      this.$emit('submit-signup-data', this.signupData)
+    setCookie (token) {
+      this.$cookies.set('auth-token', token)
+      this.isLoggedIn = true
+    },
+    async signup () {
+      try {
+        const res = await axios.post(SERVER_URL + '/rest-auth/signup/', this.signupData)
+        this.setCookie(res.data.key)
+        this.$router.push({ name: 'Home' })
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
