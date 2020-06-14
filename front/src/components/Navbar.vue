@@ -42,14 +42,14 @@ export default {
         },
         {
           icon: 'mdi-trophy',
-          text: 'Top Rated Movies'
+          text: '최고의 영화들'
           // route: '/top-rated-movies'
         },
 
         {
-          icon: 'mdi-medal',
-          text: 'Top Rated Shows'
-          // route: '/top-rated-shows'
+          icon: 'mdi-video-vintage',
+          text: '내 영화',
+          route: '/mymovie'
         },
         {
           icon: 'mdi-account-circle',

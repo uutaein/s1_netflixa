@@ -6,6 +6,7 @@ import Account from '@/views/Account.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Recommend from '@/views/Recommend.vue'
+import MyMovie from '@/views/MyMovie.vue'
 
 Vue.use(VueRouter)
 
@@ -14,14 +15,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/account',
@@ -42,6 +35,11 @@ const routes = [
     path: '/recommend',
     name: 'Recommend',
     component: Recommend
+  },
+  {
+    path: '/mymovie',
+    name: 'MyMovie',
+    component: MyMovie
   }
 ]
 
