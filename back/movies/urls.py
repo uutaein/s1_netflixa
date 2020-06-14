@@ -5,6 +5,9 @@ app_name = 'movies'
 
 urlpatterns = [
     # moives
-    path('', views.movie_list, name='movie_list'),
-    # path('<int:movie_pk>/like/', views.movie_like, name='movie_like'),
+    path('', views.list, name='list'),
+    path('create/', views.create, name='create'),
+    path('<int:movie_pk>/', views.detail, name='detail'),
 ]
+
+# movie 도 list, detail 이렇게 간단하게 쓸 지?

@@ -22,7 +22,7 @@ def create(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def detail(reqeust, review_pk):
+def detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     serializer = ReviewSerializer(review)
     return Response(serializer.data)
