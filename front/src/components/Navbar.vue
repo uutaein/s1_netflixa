@@ -37,8 +37,8 @@ export default {
         { icon: 'mdi-home', text: 'Home', route: '/' },
         {
           icon: 'mdi-filmstrip',
-          text: '영화 추천받기'
-          // route: '/movies-playing-now'
+          text: '영화 추천받기',
+          route: '/recommend'
         },
         {
           icon: 'mdi-trophy',
