@@ -70,7 +70,13 @@ export default {
           icon: 'mdi-grease-pencil',
           text: '리뷰 남기기',
           route: '/reviews/create'
+        },
+        {
+          icon: 'mdi-comment-text-multiple-outline',
+          text: '리뷰 보기',
+          route: '/reviews'
         }
+
       ]
     }
   }

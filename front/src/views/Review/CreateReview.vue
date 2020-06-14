@@ -62,7 +62,7 @@ import axios from 'axios'
 const SERVER_URL = 'http://localhost:8000'
 
 export default {
-  name: 'CreateView',
+  name: 'CreateReview',
   data () {
     return {
       reviewData: {

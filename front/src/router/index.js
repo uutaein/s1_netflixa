@@ -13,6 +13,7 @@ import Signup from '@/views/Signup.vue'
 
 // reviews
 import CreateReview from '@/views/Review/CreateReview.vue'
+import ReviewList from '@/views/Review/ReviewList.vue'
 
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
@@ -52,6 +53,11 @@ const routes = [
     path: '/reviews/create',
     name: 'CreateReview',
     component: CreateReview
+  },
+  {
+    path: '/reviews',
+    name: 'ReviewList',
+    component: ReviewList
   }
 ]
 
