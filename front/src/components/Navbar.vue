@@ -69,7 +69,7 @@ export default {
         {
           icon: 'mdi-grease-pencil',
           text: '리뷰 남기기',
-          route: '/createreview'
+          route: '/reviews/create'
         }
       ]
     }
