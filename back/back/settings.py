@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,16 +46,20 @@ INSTALLED_APPS = [
 
     #rest_auth + allauth
     'rest_auth',
+    'rest_auth.registration',
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
 
+    # CORS
+    'corsheaders',
+    
     #My Apps
     'accounts',
     'movies',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,9 +144,29 @@ AUTH_USER_MODEL = 'accounts.User'
 # django sites app setting
 SITE_ID = 1
 
+# CORS Allow
+CORS_ORIGIN_ALLOW_ALL = True
 # DRF auth settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
 }
+
+#JWT_AUTH 설정을 위해 settings.py 맨 위해 import datetime을 추가하자!!
+
+JWT_AUTH = {
+    
+    'JWT_VERIFY' : True,
+    'JWT_VERIFY_EXPIRATION': True,
+
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+}
+
+REST_USE_JWT = True
+
