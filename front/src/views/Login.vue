@@ -23,25 +23,30 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="ID"
+                    label="ID를 입력하세요"
                     name="login"
                     prepend-icon="mdi-account"
                     type="text"
+                    v-model="username"
                   ></v-text-field>
 
                   <v-text-field
-                    id="password"
-                    label="Password"
+                    label="비밀번호를 입력하세요"
                     name="password"
                     prepend-icon="mdi-lock"
                     type="password"
+                    v-model="password"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Signup</v-btn>
-                <v-btn color="primary">Login</v-btn>
+                <router-link :to="{name : 'Signup' }">
+                    <v-btn color="primary">Signup</v-btn>
+                </router-link>
+                <v-btn
+                    @click="login({username, password})"
+                    >Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -52,8 +57,21 @@
 </template>
 
 <script>
-export default {
+import { mapState, mapActions } from 'vuex'
 
+export default {
+  data () {
+    return {
+      username: null,
+      password: null
+    }
+  },
+  computed: {
+    ...mapState(['isLogin', 'isLoginError'])
+  },
+  methods: {
+    ...mapActions(['login'])
+  }
 }
 </script>
 
