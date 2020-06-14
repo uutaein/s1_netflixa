@@ -1,13 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-// views
+// movie
 import Home from '../views/Home.vue'
+import Recommend from '@/views/Recommend.vue'
+import MyMovie from '@/views/MyMovie.vue'
+
+// account
 import Account from '@/views/Account.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
-import Recommend from '@/views/Recommend.vue'
-import MyMovie from '@/views/MyMovie.vue'
+
+// reviews
+import CreateReview from '@/views/Review/CreateReview.vue'
+import ReviewList from '@/views/Review/ReviewList.vue'
 
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
@@ -42,6 +48,16 @@ const routes = [
     path: '/mymovie',
     name: 'MyMovie',
     component: MyMovie
+  },
+  {
+    path: '/reviews/create',
+    name: 'CreateReview',
+    component: CreateReview
+  },
+  {
+    path: '/reviews',
+    name: 'ReviewList',
+    component: ReviewList
   }
 ]
 
