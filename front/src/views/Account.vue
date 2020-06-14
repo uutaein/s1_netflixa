@@ -1,55 +1,34 @@
-/<template>
-<v-app id="landing-page">
-    <v-content>
-      <v-container
-        background-color="primary"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="8"
+<template>
+  <div>
+    <v-container text-center>
+      <v-row>
+        <v-col cols="4">
+          <v-card
+            class="pt-12"
+            height='88vh'>
+          <v-avatar
+            class="profile"
+            color="grey"
+            size="200"
+            tile
           >
-            <v-card class="elevation-6">
-              <v-toolbar
-                color="#625265"
-                dark
-                flat
-              >
-                <v-toolbar-title>나의 계정</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    label="Login"
-                    name="login"
-                    prepend-icon="mdi-account"
-                    type="text"
-                  ></v-text-field>
+            <v-img centered src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+          </v-avatar>
+              <v-list-item-content>
+              <v-list-item-title class="title">Marcus Obrien</v-list-item-title>
+              <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-card>
 
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-  </v-app>
+        </v-col>
+        <v-col cols="8">
+          <v-card height='88vh'>
+
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
