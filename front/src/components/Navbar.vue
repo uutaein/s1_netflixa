@@ -52,9 +52,19 @@ export default {
           // route: '/top-rated-shows'
         },
         {
-          icon: 'mdi-information',
+          icon: 'mdi-account-circle',
           text: '내 계정',
           route: '/account'
+        },
+        {
+          icon: 'mdi-login',
+          text: '로그인',
+          route: '/login'
+        },
+        {
+          icon: 'mdi-account-edit',
+          text: '계정 만들기',
+          route: '/signup'
         }
       ]
     }
