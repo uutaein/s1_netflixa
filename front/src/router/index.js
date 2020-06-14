@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 // views
 import Home from '../views/Home.vue'
 import Account from '@/views/Account.vue'
@@ -8,6 +9,7 @@ import Signup from '@/views/Signup.vue'
 import Recommend from '@/views/Recommend.vue'
 import MyMovie from '@/views/MyMovie.vue'
 
+Vue.prototype.$http = axios
 Vue.use(VueRouter)
 
 const routes = [
