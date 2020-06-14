@@ -144,16 +144,13 @@ AUTH_USER_MODEL = 'accounts.User'
 # django sites app setting
 SITE_ID = 1
 
-# CORS Allow
-CORS_ORIGIN_ALLOW_ALL = True
+
 # DRF auth settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
 }
 
 
