@@ -155,18 +155,3 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
 }
-
-#JWT_AUTH 설정을 위해 settings.py 맨 위해 import datetime을 추가하자!!
-
-JWT_AUTH = {
-    
-    'JWT_VERIFY' : True,
-    'JWT_VERIFY_EXPIRATION': True,
-
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
-}
-
-REST_USE_JWT = True
-

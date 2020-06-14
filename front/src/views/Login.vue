@@ -57,7 +57,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import axios from 'axios'
+const SERVER_URL = 'http://localhost:8000'
 
 export default {
   data () {
@@ -66,11 +67,20 @@ export default {
       password: null
     }
   },
-  computed: {
-    ...mapState(['isLogin', 'isLoginError'])
-  },
   methods: {
-    ...mapActions(['login'])
+    setCookie (token) {
+      this.$cookies.set('auth-token', token)
+      this.isLoggedIn = true
+    },
+    async login (loginData) {
+      try {
+        const res = await axios.post(SERVER_URL + '/rest-auth/login/', loginData)
+        this.setCookie(res.data.key)
+        this.$router.push({ name: 'Home' })
+      } catch (err) {
+        console.error(err)
+      }
+    }
   }
 }
 </script>
