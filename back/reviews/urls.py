@@ -6,7 +6,7 @@ app_name = 'reviews'
 urlpatterns = [
     path('', views.index, name='index'),
     # reviews CRUD
-    path('create/', views.create, name='create'),
+    path('create/<int:movie_pk>/', views.create, name='create'),
     path('<int:review_pk>/', views.detail, name='detail'),
     path('<int:review_pk>/update/', views.update, name='update'),
     path('<int:review_pk>/delete/', views.delete, name='delete'),

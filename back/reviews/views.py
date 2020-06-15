@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Review, Comment
+from movies.models import Movie
 from .serializers import ReviewSerializer, ReviewListSerializer, CommentSerializer
 
 @api_view(['GET'])
@@ -17,10 +18,11 @@ def index(request):
 # Review CRUD
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def create(request):
+def create(request, movie_pk):
     serializer = ReviewSerializer(data=request.data)
+    movie = get_object_or_404(Movie, pk=movie_pk)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user)
+        serializer.save(user=request.user, movie=movie)
         return Response(serializer.data)
 
 @api_view(['GET'])
