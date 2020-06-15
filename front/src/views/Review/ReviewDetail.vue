@@ -19,7 +19,7 @@
         <div class="d-flex justify-end">
           <v-btn
           v-if="this.$store.state.user_name === post.user.username"
-          @click="$router.push({ name: 'updatefreeboard', params: { id: post.id }})"
+          @click="$router.push({ name: 'UpdateReview', params: { id: post.id }})"
           class="mr-3"
           color="light-blue"
           dark
@@ -83,7 +83,7 @@ export default {
     deleteDetail () {
       const baseUrl = this.$store.state.base_url
       const apiUrl = baseUrl + '/reviews/' + this.id + '/delete/'
-      this.$http.post(apiUrl)
+      this.$http.get(apiUrl)
         .then(res => {
           this.$router.go(-1)
         })
