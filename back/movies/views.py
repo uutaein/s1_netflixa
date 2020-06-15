@@ -44,3 +44,14 @@ def delete(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     movie.delete()
     return Response({'message': 'movie deleted'})
+
+@api_view(['GET'])
+def like(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    # 좋아요를 누른적이 있다면, => DB에 저장되어 있으면
+    if movie.like_users.filter(id=request.user.pk).exists():
+        movie.like_users.remove(request.user)
+        return Response({'message': 'movie unliked'})
+    else:
+        movie.like_users.add(request.user)
+        return Response({'message': 'movie liked'})
