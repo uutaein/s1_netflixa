@@ -12,9 +12,10 @@ import Login from '@/views/Accounts/Login.vue'
 import Signup from '@/views/Accounts/Signup.vue'
 
 // reviews
-import CreateReview from '@/views/Review/CreateReview.vue'
 import ReviewList from '@/views/Review/ReviewList.vue'
 import ReviewDetail from '@/views/Review/ReviewDetail.vue'
+import CreateReview from '@/views/Review/CreateReview.vue'
+import UpdateReview from '@/views/Review/UpdateReview.vue'
 
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
@@ -51,14 +52,19 @@ const routes = [
     component: MyMovie
   },
   {
+    path: '/reviews',
+    name: 'ReviewList',
+    component: ReviewList
+  },
+  {
     path: '/reviews/create',
     name: 'CreateReview',
     component: CreateReview
   },
   {
-    path: '/reviews',
-    name: 'ReviewList',
-    component: ReviewList
+    path: '/reviews/:id/update',
+    name: 'UpdateReview',
+    component: UpdateReview
   },
   {
     path: '/reviews/:id',

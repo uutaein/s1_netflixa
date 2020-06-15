@@ -81,7 +81,6 @@ export default {
       // article 생성은 Header: Token / Body: { title: , content: }
       axios.post(SERVER_URL + '/reviews/create/', this.reviewData, config)
         .then(res => {
-          console.log(res.data)
           this.$router.push({ name: 'List' })
         })
         .catch(err => console.log(err.response.data))
