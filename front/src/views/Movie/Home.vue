@@ -16,8 +16,8 @@
 
 <script>
 import axios from 'axios'
-import MediaGrid from '../components/MediaGrid.vue'
-import MediaNav from '../components/MediaNav.vue'
+import MediaGrid from '@/components/MediaGrid.vue'
+import MediaNav from '@/components/MediaNav.vue'
 export default {
   components: {
     mediaGrid: MediaGrid,
