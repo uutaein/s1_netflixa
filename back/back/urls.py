@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('reviews/', include('reviews.urls')),
     path('movies/', include('movies.urls')),
+    path('accounts/', include('accounts.urls')),  # 커스터마이징
 
     #rest_auth
     path('rest-auth/', include('rest_auth.urls')),
