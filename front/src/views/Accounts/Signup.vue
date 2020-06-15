@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
 
 export default {
   name: 'SignupView',
@@ -80,11 +78,12 @@ export default {
   methods: {
     setCookie (token) {
       this.$cookies.set('auth-token', token)
-      this.isLoggedIn = true
+      this.$store.commit('Login')
+      this.$store.commit('usernameSave', this.signupData.username)
     },
     async signup () {
       try {
-        const res = await axios.post(SERVER_URL + '/rest-auth/signup/', this.signupData)
+        const res = await this.$http.post(this.$store.state.base_url + '/rest-auth/signup/', this.signupData)
         this.setCookie(res.data.key)
         this.$router.push({ name: 'Home' })
       } catch (err) {

@@ -58,7 +58,6 @@
 
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
 
 export default {
   data () {
@@ -70,11 +69,12 @@ export default {
   methods: {
     setCookie (token) {
       this.$cookies.set('auth-token', token)
-      this.isLoggedIn = true
+      this.$store.commit('Login')
+      this.$store.commit('usernameSave', this.username)
     },
     async login (loginData) {
       try {
-        const res = await axios.post(SERVER_URL + '/rest-auth/login/', loginData)
+        const res = await axios.post(this.$store.state.base_url + '/rest-auth/login/', loginData)
         this.setCookie(res.data.key)
         this.$router.push({ name: 'Home' })
       } catch (err) {
