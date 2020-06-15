@@ -10,6 +10,8 @@ urlpatterns = [
     path('<int:review_pk>/', views.detail, name='detail'),
     path('<int:review_pk>/update/', views.update, name='update'),
     path('<int:review_pk>/delete/', views.delete, name='delete'),
+    # review like
+    path('<int:review_pk>/like/', views.like, name='like'),
 
     # comments CRUD
     path('<int:review_pk>/comments/', views.comments_list, name='comments_list'),

@@ -10,6 +10,8 @@ urlpatterns = [
     path('<int:movie_pk>/', views.detail, name='detail'),
     path('<int:movie_pk>/update/', views.update, name='update'),
     path('<int:movie_pk>/delete/', views.delete, name='delete'),
+    # movies Like
+    path('<int:movie_pk>/like/', views.like, name='like'),
 ]
 
 # movie 도 list, detail 이렇게 간단하게 쓸 지?

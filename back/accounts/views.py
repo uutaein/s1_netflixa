@@ -23,9 +23,14 @@ def detail(request, user_pk):
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
+
+# @api_view(['GET'])
+# def delete(request):
+#     request.user.delete()
+#     return Response({'message':'delete success'})
+
 @api_view(['GET'])
 def follow(request, user_pk):
-    User = get_user_model()
     # 팔로우 당하는 사람
     user = get_object_or_404(User, pk=user_pk)
     if user != request.user:
@@ -52,10 +57,5 @@ def follow(request, user_pk):
 #         return Response(serializer.data)
 
 
-# @require_POST
-# @login_required
-# def delete(request):
-#     request.user.delete()
-#     return redirect('articles:index')
 
 

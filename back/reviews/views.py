@@ -43,6 +43,18 @@ def delete(request, review_pk):
     review.delete()
     return Response({'message': 'review deleted'})
 
+# review like
+@api_view(['GET'])
+def like(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    # 좋아요를 누른적이 있다면, => DB에 저장되어 있으면
+    if review.like_users.filter(id=request.user.pk).exists():
+        review.like_users.remove(request.user)
+        return Response({'message': 'review unliked'})
+    else:
+        review.like_users.add(request.user)
+        return Response({'message': 'review liked'})
+
 
 # comment CRUD
 @api_view(['GET'])
