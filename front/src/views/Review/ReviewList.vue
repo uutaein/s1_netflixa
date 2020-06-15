@@ -6,8 +6,8 @@
         <h1 class="mb-3 gamjaFont">리뷰 목록</h1>
         <v-spacer></v-spacer>
         <v-btn
-        v-if="user !== ''"
-        to= "/createfreeboard"
+        v-if=" this.$store.state.isLoggedin "
+        to= "/reviews/create"
         text
         icon
         >
@@ -30,7 +30,7 @@
     <section id='content'>
       <div v-for="post in paginatedData" :key="post.id">
         <v-btn
-        :to="'/free/' + post.id"
+        :to="'/reviews/' + post.id"
         height="auto"
         text
         block
@@ -78,12 +78,12 @@ export default {
     }
   },
   mounted () {
-    this.getFrees()
+    this.getReviews()
   },
   methods: {
-    getFrees () {
+    getReviews () {
       const baseUrl = this.$store.state.base_url
-      const apiUrl = baseUrl + 'boards/free'
+      const apiUrl = baseUrl + '/reviews/'
       this.$http.get(apiUrl)
         .then(res => {
           this.posts = res.data
