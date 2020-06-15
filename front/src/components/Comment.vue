@@ -32,12 +32,12 @@
           <div>
             <v-row class="mx-0">
               <v-row class="createuser px-3" align="center">
-                <div class="font-weight-black">{{post.user}}</div>
+                <div class="font-weight-black">{{post.user.username}}</div>
                 <v-divider class="mx-5" vertical inset></v-divider>
                 <div>{{post.created_at}}</div>
                 <v-spacer></v-spacer>
                 <v-btn
-                v-if="userId === post.user"
+                v-if="user  === post.user.username"
                 @click="deleteComment(post.id, idx)"
                 text
                 icon
@@ -63,7 +63,7 @@
 export default {
   name: 'Comment',
   props: {
-    pageSize: { type: Number, required: false, default: 6 }
+    pageSize: { type: Number, required: false, default: 5 }
   },
   data () {
     return {
@@ -137,8 +137,8 @@ export default {
     },
     deleteComment (id, idx) {
       const baseUrl = this.$store.state.base_url
-      const apiUrl = baseUrl + 'boards/comment/' + id
-      this.$http.delete(apiUrl)
+      const apiUrl = baseUrl + '/reviews/' + this.id + '/comments/' + id + '/delete'
+      this.$http.get(apiUrl)
         .then(res => {
           this.posts.splice(idx, 1)
         })

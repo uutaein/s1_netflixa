@@ -48,8 +48,8 @@ export default {
 
         {
           icon: 'mdi-video-vintage',
-          text: '내 영화',
-          route: '/mymovie'
+          text: '영화 목록',
+          route: '/movies'
         },
         {
           icon: 'mdi-account-circle',
