@@ -52,6 +52,11 @@ export default {
           route: '/movies'
         },
         {
+          icon: 'mdi-film',
+          text: '영화 추가',
+          route: '/movies/create'
+        },
+        {
           icon: 'mdi-account-circle',
           text: '내 계정',
           route: '/account'

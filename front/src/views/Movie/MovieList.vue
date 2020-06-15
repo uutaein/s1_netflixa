@@ -15,51 +15,54 @@
 </template>
 
 <script>
-import axios from 'axios'
 import MediaGrid from '@/components/MediaGrid.vue'
 import MediaNav from '@/components/MediaNav.vue'
+
 export default {
   components: {
     mediaGrid: MediaGrid,
     mediaNav: MediaNav
   },
+  props: {
+    pageSize: { type: Number, required: false, default: 6 }
+  },
   data: function () {
     return {
       movies: [],
-      pageTitle: 'Movies Playing Now',
-      imageURL: 'https://image.tmdb.org/t/p/w1280',
+      pageTitle: '영화 목록',
       sortCriteria: 'Most Popular',
       sortedBy: 'popularity',
       page: 1,
       showPagination: false
     }
   },
+  computed: {
+    paginatedData () {
+      const start = (this.pageNum - 1) * this.pageSize
+      const end = start + this.pageSize
+      return this.posts.slice(start, end)
+    }
+  },
   methods: {
-    init () {
-      const key = process.env.VUE_APP_MOVIE_KEY
-      axios
-        .get(
-          'https://api.themoviedb.org/3/movie/now_playing?api_key=' +
-
-              key +
-              '&language=ko-KR&page=' +
-              this.page
-        )
-        .then(response => {
-          // handle success
-          // console.log(response);
-          this.movies = response.data.results
-        })
-        .catch(error => {
-          // handle error
-          console.log(error)
-        })
-        .finally(() => {
-          // always executed
-          console.log(key)
-          this.sortBy(this.sortedBy)
-          this.showPagination = true
-        })
+    async getMovies () {
+      const baseUrl = this.$store.state.base_url
+      const apiUrl = baseUrl + '/movies/'
+      try {
+        const res = await this.$http.get(apiUrl)
+        this.movies = res.data
+        for (const i of res.data) {
+          i.created_at = String(i.created_at).substring(0, 10)
+        }
+        const listLength = this.posts.length
+        const listSize = this.pageSize
+        const page = Math.floor((listLength - 1) / listSize) + 1
+        this.size = page
+      } catch (err) {
+        console.error(err)
+      } finally {
+        this.sortBy(this.sortedBy)
+        this.showPagination = true
+      }
     },
     sortBy (prop) {
       if (prop === 'popularity') {
@@ -75,11 +78,11 @@ export default {
   },
   watch: {
     page: function (page) {
-      this.init()
+      this.getMovies()
     }
   },
   mounted () {
-    this.init()
+    this.getMovies()
   }
 }
 </script>
