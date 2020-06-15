@@ -25,7 +25,6 @@ def detail(request, user_pk):
 
 @api_view(['GET'])
 def follow(request, user_pk):
-    User = get_user_model()
     # 팔로우 당하는 사람
     user = get_object_or_404(User, pk=user_pk)
     if user != request.user:
