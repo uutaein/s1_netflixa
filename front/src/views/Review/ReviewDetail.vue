@@ -18,7 +18,7 @@
         <v-divider class="minDiv mb-5"></v-divider>
         <div class="d-flex justify-end">
           <v-btn
-          v-if="user === post.user"
+          v-if="this.$store.state.user_name === post.user.username"
           @click="$router.push({ name: 'updatefreeboard', params: { id: post.id }})"
           class="mr-3"
           color="light-blue"
@@ -27,7 +27,7 @@
             수정
           </v-btn>
           <v-btn
-          v-if="user === post.user"
+          v-if="this.$store.state.user_name === post.user.username"
           @click="deleteDetail()"
           class="mr-3"
           color="pink"
@@ -66,10 +66,10 @@ export default {
     getDetail () {
       const baseUrl = this.$store.state.base_url
       const apiUrl = baseUrl + '/reviews/' + this.id + '/'
-      console.log(apiUrl)
       this.$http.get(apiUrl)
         .then(res => {
-          console.log(res.data)
+          console.log(this.$store.state.user_name)
+          console.log(this.$store.state.user_name === res.data.user.username)
           const createdAt = res.data.created_at
           res.data.created_at = createdAt.substring(0, 4) + '년 ' +
                                 createdAt.substring(5, 7) + '월 ' +
