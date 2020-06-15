@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Movie
-from .serializers import MovieListSerializer, MovieSerializer
+from .serializers import MovieListSerializer, MovieSerializer, MovieCreateSerializer
 
 
 @api_view(['GET'])
@@ -25,7 +25,7 @@ def detail(request, movie_pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create(request):
-    serializer = MovieSerializer(data=request.data)
+    serializer = MovieCreateSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
         return Response(serializer.data)
