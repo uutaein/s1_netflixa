@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.serializers import UserSerializer
-from .models import Review
+from .models import Review, Comment
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -14,3 +14,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
         read_only_fields = ('id', 'user', 'created_at', 'updated_at')
+
+class CommentSerializer(serializers.ModelSerializer):
+    # user = UserSerializer(required=False)
+    class Meta:
+        model = Comment
+        fields = ('id', 'content',)
