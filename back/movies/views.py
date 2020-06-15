@@ -29,3 +29,18 @@ def create(request):
     if serializer.is_valid(raise_exception=True):
         serializer.save()
         return Response(serializer.data)
+
+
+@api_view(['POST'])
+def update(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    serializer = MovieSerializer(data=request.data, instance=movie)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def delete(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    movie.delete()
+    return Response({'message': 'movie deleted'})
