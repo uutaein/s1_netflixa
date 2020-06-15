@@ -4,7 +4,9 @@ import axios from 'axios'
 // movie
 import Home from '@/views/Movie/Home.vue'
 import Recommend from '@/views/Movie/Recommend.vue'
-import MyMovie from '@/views/Movie/MyMovie.vue'
+import MovieList from '@/views/Movie/MovieList.vue'
+import CreateMovie from '@/views/Movie/CreateMovie.vue'
+import UpdateMovie from '@/views/Movie/UpdateMovie.vue'
 
 // account
 import Account from '@/views/Accounts/Account.vue'
@@ -47,9 +49,19 @@ const routes = [
     component: Recommend
   },
   {
-    path: '/mymovie',
-    name: 'MyMovie',
-    component: MyMovie
+    path: '/movies',
+    name: 'MovieList',
+    component: MovieList
+  },
+  {
+    path: '/movies/create',
+    name: 'CreateMovie',
+    component: CreateMovie
+  },
+  {
+    path: '/movies/:id/update',
+    name: 'UpdateMovie',
+    component: UpdateMovie
   },
   {
     path: '/reviews',
