@@ -19,7 +19,7 @@
                 <v-btn color="indigo" text v-bind="attr" @click="like_popup = false">Close</v-btn>
               </template>
             </v-snackbar>
-            <v-icon medium>mdi-heart</v-icon>
+            <v-icon medium :color="heart_color">mdi-heart</v-icon>
           </v-btn>
           </v-layout>
         </v-card>
@@ -54,7 +54,8 @@ export default {
       is_liked: false,
       like_popup: false,
       like_timeout: 2000,
-      like_res: '시발'
+      like_res: '',
+      heart_color: 'gray'
     }
   },
   mounted () {
@@ -81,10 +82,18 @@ export default {
       const baseUrl = this.$store.state.base_url
       const apiUrl = baseUrl + '/movies/' + this.id + '/like/'
       try {
-        const res = await this.$http.get(apiUrl, config)
-        console.log(res)
+        await this.$http.get(apiUrl, config)
+        this.is_liked = !this.is_liked
+        if (this.is_liked === true) {
+          this.like_res = '좋아요 하셨습니다'
+          this.heart_color = 'pink'
+        } else {
+          this.like_res = '좋아요 취소 하셨습니다'
+          this.heart_color = 'gray'
+        }
       } catch (err) {
         console.error(err)
+        this.like_res = '에러가 발생했습니다. 나중에 다시 시도하세요'
       } finally {
         this.like_popup = true
       }
