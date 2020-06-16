@@ -24,7 +24,7 @@ export default {
   mounted () {
     this.$store.commit('urlSave', 'http://localhost:8000') // url 정해주기
     this.getGenre()
-    this.$store.commit('LoginState', { iskey: this.$cookies.isKey('auth-token'), name: this.$cookies.get('username') })
+    this.$store.commit('LoginState', { iskey: this.$cookies.isKey('auth-token'), name: this.$cookies.get('username'), id: this.$cookies.get('userid') })
   },
   methods: {
     async getGenre () {
