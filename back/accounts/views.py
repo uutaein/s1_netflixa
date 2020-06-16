@@ -23,7 +23,6 @@ def detail(request, user_pk):
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
-
 # @api_view(['GET'])
 # def delete(request):
 #     request.user.delete()

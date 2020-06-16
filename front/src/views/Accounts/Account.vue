@@ -15,7 +15,7 @@
             <v-img centered src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
           </v-avatar>
               <v-list-item-content>
-              <v-list-item-title class="title">{{ userData }}</v-list-item-title>
+              <v-list-item-title class="title">{{ userData.username }}</v-list-item-title>
               <v-list-item-subtitle>직업</v-list-item-subtitle>
             </v-list-item-content>
           </v-card>
@@ -28,7 +28,7 @@
                 <v-carousel hide-delimiters style="box-shadow: 0px 0px" height="auto">
                   <v-carousel-item v-for="i in 2" :key="i" max-height="30vh" >
                     <v-layout row>
-                      <v-flex sm4 v-for="j in 6" :key="j" pl-2 pr-2>
+                      <v-flex sm4 v-for="j in userData.like_movies" :key="j" pl-2 pr-2>
                         <v-card>
                           <v-img
                             src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
@@ -36,7 +36,7 @@
                           ></v-img>
                           <v-card-title primary-title>
                             <div>
-                              <h3 class="headline mb-0">Card {{i}}-{{j}}</h3>
+                              <h3 class="headline mb-0">{{j}}</h3>
                               <div> Card text </div>
                             </div>
                           </v-card-title>
@@ -59,8 +59,7 @@ export default {
   name: 'account',
   data () {
     return {
-      userData: {},
-      userID: ''
+      userData: {}
     }
   },
   methods: {
@@ -69,7 +68,7 @@ export default {
       const apiUrl = baseUrl + '/accounts/' + this.userID + '/'
       try {
         const res = await this.$http.get(apiUrl)
-        this.userdata = res.data
+        this.userData = res.data
       } catch (err) {
         console.error(err)
       }
