@@ -11,9 +11,7 @@
           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-share</v-icon>
-          </v-btn>
+          <v-btn text color="#FBA285" :to=" '/movies/' + movie.id">DETAIL</v-btn>
 
           </v-card-actions>
           <!-- <v-progress-circular

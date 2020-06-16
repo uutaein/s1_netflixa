@@ -82,8 +82,6 @@ export default {
       this.$http
         .get(apiUrl)
         .then(res => {
-          console.log(this.$store.state.user_name)
-          console.log(this.$store.state.user_name === res.data.user.username)
           const createdAt = res.data.created_at
           res.data.created_at =
             createdAt.substring(0, 4) +
