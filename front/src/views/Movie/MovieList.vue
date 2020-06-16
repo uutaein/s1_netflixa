@@ -51,10 +51,12 @@ export default {
       const apiUrl = baseUrl + '/movies/'
       try {
         const res = await this.$http.get(apiUrl)
-        this.movies = res.data
         for (const i of res.data) {
           i.created_at = String(i.created_at).substring(0, 10)
+          i.half_rate = i.vote_average / 2
         }
+        this.movies = res.data
+        console.log(this.movies)
         const listLength = this.movies.length
         const listSize = this.pageSize
         const page = Math.floor((listLength - 1) / listSize) + 1
