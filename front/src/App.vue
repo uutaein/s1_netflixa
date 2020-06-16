@@ -21,8 +21,19 @@ export default {
   data: () => ({
     //
   }),
-  mounted () {
+  created () {
     this.$store.commit('urlSave', 'http://localhost:8000') // url 정해주기
+    this.getGenre()
+  },
+  methods: {
+    async getGenre () {
+      try {
+        const res = await this.$http.get('http://api.themoviedb.org/3/genre/movie/list?api_key=714dd2d169d0ac88cf9e118b870d7c1c&language=ko-KR')
+        this.$store.commit('GetGenre', res.data.genres)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   },
   store
 }

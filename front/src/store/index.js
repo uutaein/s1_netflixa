@@ -8,7 +8,8 @@ export default new Vuex.Store({
     user_id: '',
     user_name: '',
     base_url: '',
-    isLoggedin: false
+    isLoggedin: false,
+    genre: ''
   },
   mutations: {
     urlSave (state, url) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
       state.isLoggedin = false
       state.user_name = ''
       state.user_id = ''
+    },
+    GetGenre (state, genreData) {
+      state.genre = genreData
     }
   },
   actions: {
