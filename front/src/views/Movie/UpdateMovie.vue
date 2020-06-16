@@ -96,7 +96,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'CreateMovie',
+  name: 'UpdateMovie',
   data () {
     return {
       movieData: {

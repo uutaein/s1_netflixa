@@ -34,10 +34,11 @@ def create(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 @user_passes_test(lambda u: u.is_superuser)
 def update(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    serializer = MovieSerializer(data=request.data, instance=movie)
+    serializer = MovieCreateSerializer(data=request.data, instance=movie)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
         return Response(serializer.data)
