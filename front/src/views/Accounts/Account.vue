@@ -65,7 +65,7 @@ export default {
   methods: {
     async getDetail () {
       const baseUrl = this.$store.state.base_url
-      const apiUrl = baseUrl + '/accounts/' + '1' + '/'
+      const apiUrl = baseUrl + '/accounts/' + this.userID + '/'
       try {
         const res = await this.$http.get(apiUrl)
         this.userData = res.data

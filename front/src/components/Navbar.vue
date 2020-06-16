@@ -192,7 +192,7 @@ export default {
     },
     async getname () {
       try {
-        const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/')
+        const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/getname/')
         console.log(response.data)
         this.userid = response.data.id
       } catch (err) {
