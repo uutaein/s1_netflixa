@@ -10,6 +10,7 @@
             v-model="movie.half_rate"
             half-increments
             readonly
+            background-color="#F6D985"
             color="#F6D985"
           ></v-rating>
           <v-card-actions>

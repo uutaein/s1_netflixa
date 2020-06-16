@@ -2,7 +2,11 @@
   <v-container>
     <v-flex class="pa-7">
       <div>
-        <v-row>
+        <v-card>
+          <v-layout column align-center fill-width class="text-left">
+          <v-img :src="imageURL + movie.backdrop_path" class="white--text align-end" height="30vh">
+            <v-card-title class="font-weight-light" large color="white">{{movie.title || movie.name}}</v-card-title>
+          </v-img>
           <h1 class="ml-3">{{movie.title}}</h1>
           <v-spacer></v-spacer>
           <v-btn
@@ -17,7 +21,8 @@
             </v-snackbar>
             <v-icon medium>mdi-heart</v-icon>
           </v-btn>
-        </v-row>
+          </v-layout>
+        </v-card>
         <v-row class="px-3">
           <span class="borderP">개봉일: {{movie.release_date}}</span>
           <span class="borderP">평점: {{movie.vote_average}}</span>
@@ -44,6 +49,7 @@ export default {
   data () {
     return {
       movie: {},
+      imageURL: 'https://image.tmdb.org/t/p/w1280/',
       user: this.$store.state.user_name,
       is_liked: false,
       like_popup: false,
@@ -67,10 +73,15 @@ export default {
       }
     },
     async like_movie () {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
       const baseUrl = this.$store.state.base_url
-      const apiUrl = baseUrl + '/reviews/' + this.id + '/like'
+      const apiUrl = baseUrl + '/movies/' + this.id + '/like/'
       try {
-        const res = await this.$http.get(apiUrl)
+        const res = await this.$http.get(apiUrl, config)
         console.log(res)
       } catch (err) {
         console.error(err)
