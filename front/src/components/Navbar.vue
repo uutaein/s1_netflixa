@@ -184,7 +184,8 @@ export default {
   },
   methods: {
     setCookie (token) {
-      this.$cookies.set('auth-token', token)
+      this.$cookies.set('auth-token', token.token)
+      this.$cookies.set('username', token.name)
       this.$store.commit('Login')
     },
     async login () {
@@ -193,7 +194,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/login/',
           this.loginData
         )
-        this.setCookie(res.data.key)
+        this.setCookie({ token: res.data.key, name: this.loginData.username })
         this.$store.commit('usernameSave', this.loginData.username)
         this.login_dialog = false
         this.loginFail = false
@@ -223,7 +224,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/signup/',
           this.signupData
         )
-        this.setCookie(res.data.key)
+        this.setCookie({ token: res.data.key, name: this.signupData.username })
         this.$store.commit('usernameSave', this.signupData.username)
         this.signup_dialog = false
         this.signupFail = false

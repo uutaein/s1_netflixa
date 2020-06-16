@@ -29,6 +29,10 @@ export default new Vuex.Store({
       state.user_name = ''
       state.user_id = ''
     },
+    LoginState (state, cookies) {
+      state.isLoggedin = cookies.iskey
+      state.user_name = cookies.name
+    },
     GetGenre (state, genreData) {
       state.genre = genreData
     }
