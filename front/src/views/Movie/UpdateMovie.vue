@@ -129,7 +129,6 @@ export default {
       const apiUrl = baseUrl + '/movies/' + this.id + '/'
       try {
         const res = await this.$http.get(apiUrl)
-        console.log(res)
         this.movieData.title = res.data.title
         this.movieData.original_title = res.data.original_title
         this.movieData.release_date = res.data.release_date
@@ -155,8 +154,8 @@ export default {
         }
         const baseUrl = this.$store.state.base_url
         const apiUrl = baseUrl + '/movies/' + this.id + '/update/'
-        const res = await this.$http.post(apiUrl, this.movieData, config)
-        console.log(res)
+        await this.$http.post(apiUrl, this.movieData, config)
+        this.$router.push({ name: 'MovieDetail', params: { id: this.id } })
       } catch (err) {
         console.error(err)
       }

@@ -81,7 +81,8 @@ export default {
       const baseUrl = this.$store.state.base_url
       const apiUrl = baseUrl + '/reviews/' + 'create/' + this.id + '/'
       try {
-        await this.$http.post(apiUrl, this.reviewData, config)
+        const res = await this.$http.post(apiUrl, this.reviewData, config)
+        this.$router.push({ name: 'ReviewDetail', params: { id: res.data.id } })
       } catch (err) {
         console.error(err)
       }
