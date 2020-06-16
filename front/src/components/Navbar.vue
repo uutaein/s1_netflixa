@@ -198,6 +198,7 @@ export default {
         console.log(res)
         this.setCookie({ token: res.data.key, name: res.data.user.username, id: res.data.user.pk })
         this.$store.commit('usernameSave', this.loginData.username)
+        this.$store.commit('useridSave', res.data.user.pk)
         this.login_dialog = false
         this.loginFail = false
       } catch (err) {
@@ -231,6 +232,7 @@ export default {
         )
         this.setCookie({ token: res.data.key, name: res.data.user.username, id: res.data.user.pk })
         this.$store.commit('usernameSave', this.signupData.username)
+        this.$store.commit('useridSave', res.data.user.pk)
         this.signup_dialog = false
         this.signupFail = false
       } catch (err) {
