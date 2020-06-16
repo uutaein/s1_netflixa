@@ -18,7 +18,9 @@
           <v-toolbar color="#1F8AD8" dark flat>
             <v-toolbar-title>로그인</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn text @click="login_dialog = false"><v-icon>mdi-close</v-icon></v-btn>
+            <v-btn text @click="login_dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text>
             <v-form>
@@ -27,7 +29,7 @@
                 name="login"
                 prepend-icon="mdi-account"
                 type="text"
-                v-model="login_username"
+                v-model="loginData.username"
                 required
               ></v-text-field>
 
@@ -36,63 +38,62 @@
                 name="password"
                 prepend-icon="mdi-lock"
                 type="password"
-                v-model="login_password"
+                v-model="loginData.password"
                 required
               ></v-text-field>
             </v-form>
+            <v-alert v-if="loginFail" dense outlined type="error">아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다</v-alert>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn text color="#1F8AD8" @click="login_dialog = false;signup_dialog = true">회원가입</v-btn>
-            <v-btn text color="#1F8AD8" @click="login({login_username, login_password})">로그인</v-btn>
+            <v-btn text color="#1F8AD8" @click="login()">로그인</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <!-- signup dialog -->
       <v-dialog v-model="signup_dialog" persistent max-width="600px">
-              <v-card>
-              <v-toolbar
-                color="#1F8AD8"
-                dark
-                flat
-              >
-                <v-toolbar-title>회원가입</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn text @click="signup_dialog = false"><v-icon>mdi-close</v-icon></v-btn>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    label="username"
-                    name="username"
-                    prepend-icon="mdi-account"
-                    type="text"
-                    v-model="signup_username"
-                  ></v-text-field>
+        <v-card>
+          <v-toolbar color="#1F8AD8" dark flat>
+            <v-toolbar-title>회원가입</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn text @click="signup_dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                label="username"
+                name="username"
+                prepend-icon="mdi-account"
+                type="text"
+                v-model="signupData.username"
+              ></v-text-field>
 
-                  <v-text-field
-                    label="Password"
-                    name="passwd"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                    v-model="signup_passwd"
-                  ></v-text-field>
-                  <v-text-field
-                    label="Password 확인"
-                    name="passcd"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                    v-model="signup_passcf"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn text @click="signup({signup_username, signup_passwd, signup_passcf})" color="#1F8AD8">회원 가입</v-btn>
-              </v-card-actions>
-            </v-card>
+              <v-text-field
+                label="Password"
+                name="passwd"
+                prepend-icon="mdi-lock"
+                type="password"
+                v-model="signupData.password1"
+              ></v-text-field>
+              <v-text-field
+                label="Password 확인"
+                name="passcd"
+                prepend-icon="mdi-lock"
+                type="password"
+                v-model="signupData.password2"
+              ></v-text-field>
+            </v-form>
+            <v-alert v-if="signupFail" dense outlined type="error">동일한 아이디가 존재하거나 비밀번호가 일치하지 않습니다</v-alert>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text @click="signup()" color="#1F8AD8">회원 가입</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
-
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" color="#B59AC5">
@@ -123,13 +124,18 @@ export default {
       login_dialog: false,
       signup_dialog: false,
       // login 위한 정보
-      login_username: null,
-      login_password: null,
+      loginData: {
+        username: null,
+        password: null
+      },
+      loginFail: false,
       // signup 위한 정보
-      signup_username: null,
-      signup_passwd: null,
-      signup_passcf: null,
-
+      signupData: {
+        username: null,
+        password1: null,
+        password2: null
+      },
+      signupFail: false,
       // routing
       links: [
         { icon: 'mdi-home', text: 'Home', route: '/' },
@@ -188,22 +194,32 @@ export default {
       this.$store.commit('Login')
       this.$store.commit('usernameSave', this.username)
     },
-    async login (loginData) {
+    async login () {
       try {
-        const res = await this.$http.post(this.$store.state.base_url + '/rest-auth/login/', loginData)
+        const res = await this.$http.post(
+          this.$store.state.base_url + '/rest-auth/login/',
+          this.loginData
+        )
         this.setCookie(res.data.key)
         this.login_dialog = false
+        this.loginFail = false
       } catch (err) {
         console.error(err)
+        this.loginFail = true
       }
     },
-    async signup (signupData) {
+    async signup () {
       try {
-        const res = await this.$http.post(this.$store.state.base_url + '/rest-auth/signup/', signupData)
+        const res = await this.$http.post(
+          this.$store.state.base_url + '/rest-auth/signup/',
+          this.signupData
+        )
         this.setCookie(res.data.key)
         this.signup_dialog = false
+        this.signupFail = false
       } catch (err) {
         console.error(err)
+        this.signupFail = true
       }
     }
   }
