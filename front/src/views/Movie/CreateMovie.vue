@@ -105,7 +105,7 @@ export default {
         release_date: new Date().toISOString().substr(0, 10),
         adult: false,
         overview: '',
-        original_language: '',
+        original_language: 'KR',
         poster_path: '',
         backdrop_path: '',
         genres: [],
