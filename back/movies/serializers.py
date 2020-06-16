@@ -16,4 +16,4 @@ class MovieSerializer(serializers.ModelSerializer):
 class MovieCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        exclude = ['like_users', 'popularity', 'vote_count', 'vote_average']
+        exclude = ['like_users',]
