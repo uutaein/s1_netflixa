@@ -57,10 +57,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const SERVER_URL = 'http://localhost:8000'
-
 export default {
   name: 'CreateReview',
   data () {
@@ -71,19 +67,24 @@ export default {
       }
     }
   },
+  mounted () {
+    this.id = this.$route.params.id
+    this.getDetail()
+  },
   methods: {
-    createReview () {
+    async createReview () {
       const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get('auth-token')}`
         }
       }
-      // article 생성은 Header: Token / Body: { title: , content: }
-      axios.post(SERVER_URL + '/reviews/create/', this.reviewData, config)
-        .then(res => {
-          this.$router.push({ name: 'List' })
-        })
-        .catch(err => console.log(err.response.data))
+      const baseUrl = this.$store.state.base_url
+      const apiUrl = baseUrl + '/reviews/' + 'create/' + this.id + '/'
+      try {
+        await this.$http.post(apiUrl, this.reviewData, config)
+      } catch (err) {
+        console.error(err)
+      }
     }
     // checkLoggedIn() {
     //   if (!this.$cookies.isKey('auth-token')) {

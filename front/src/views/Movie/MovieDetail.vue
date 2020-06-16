@@ -36,6 +36,7 @@
         </div>
         <v-divider class="minDiv mb-5"></v-divider>
         <div class="d-flex justify-end">
+          <v-btn :to="'/reviews/create/' + id" color="#74B4A0" dark>리뷰쓰기</v-btn>
           <v-btn to="/movies" color="#74B4A0" dark>목록으로</v-btn>
         </div>
       </div>
