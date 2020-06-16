@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.contrib.auth.decorators import user_passes_test
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -24,6 +25,7 @@ def detail(request, movie_pk):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+@user_passes_test(lambda u: u.is_superuser)
 def create(request):
     serializer = MovieCreateSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
@@ -32,6 +34,7 @@ def create(request):
 
 
 @api_view(['POST'])
+@user_passes_test(lambda u: u.is_superuser)
 def update(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = MovieSerializer(data=request.data, instance=movie)
@@ -40,6 +43,7 @@ def update(request, movie_pk):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@user_passes_test(lambda u: u.is_superuser)
 def delete(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     movie.delete()
