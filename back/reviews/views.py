@@ -87,3 +87,6 @@ def delete_comment(request, review_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     comment.delete()
     return Response({'message': 'comment deleted'})
+
+
+#  score C,U,D

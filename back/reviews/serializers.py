@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.serializers import UserSerializer
-from .models import Review, Comment
+from .models import Review, Comment, Score
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer()
