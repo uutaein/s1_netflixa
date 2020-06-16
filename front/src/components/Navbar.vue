@@ -128,6 +128,7 @@ export default {
       login_dialog: false,
       signup_dialog: false,
       // login 위한 정보
+      userid: null,
       loginData: {
         username: null,
         password: null
@@ -189,16 +190,25 @@ export default {
       // this.$cookies.set('userid', token.id)
       this.$store.commit('Login')
     },
+    async getname () {
+      try {
+        const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/')
+        console.log(response.data)
+        this.userid = response.data.id
+      } catch (err) {
+        console.error(err)
+      }
+    },
     async login () {
       try {
         const res = await this.$http.post(
           this.$store.state.base_url + '/rest-auth/login/',
           this.loginData
         )
-        console.log(res)
-        this.setCookie({ token: res.data.key, name: this.loginData.username })
+        await this.getname()
+        this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid })
         this.$store.commit('usernameSave', this.loginData.username)
-        // this.$store.commit('useridSave', res.data.id)
+        this.$store.commit('useridSave', this.userid)
         this.login_dialog = false
         this.loginFail = false
       } catch (err) {
@@ -230,9 +240,10 @@ export default {
           this.$store.state.base_url + '/rest-auth/signup/',
           this.signupData
         )
-        this.setCookie({ token: res.data.key, name: this.signupData.username })
+        await this.getname()
+        this.setCookie({ token: res.data.key, name: this.signupData.username, id: this.userid })
         this.$store.commit('usernameSave', this.signupData.username)
-        // this.$store.commit('useridSave', res.data.user.pk)
+        this.$store.commit('useridSave', this.userid)
         this.signup_dialog = false
         this.signupFail = false
       } catch (err) {
