@@ -109,10 +109,15 @@ export default {
         })
     },
     async like_review () {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
       const baseUrl = this.$store.state.base_url
-      const apiUrl = baseUrl + '/reviews/' + this.id + '/like'
+      const apiUrl = baseUrl + '/reviews/' + this.id + '/like/'
       try {
-        const res = await this.$http.get(apiUrl)
+        const res = await this.$http.get(apiUrl, config)
         console.log(res)
       } catch (err) {
         console.error(err)
