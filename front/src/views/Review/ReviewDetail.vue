@@ -97,17 +97,20 @@ export default {
           console.log(err)
         })
     },
-    deleteDetail () {
+    async deleteDetail () {
       const baseUrl = this.$store.state.base_url
       const apiUrl = baseUrl + '/reviews/' + this.id + '/delete/'
-      this.$http
-        .get(apiUrl)
-        .then(res => {
-          this.$router.go(-1)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
+      try {
+        await this.$http.get(apiUrl, config)
+        this.$router.push({ name: 'ReviewList' })
+      } catch (err) {
+        console.log(err)
+      }
     },
     async like_review () {
       const config = {
