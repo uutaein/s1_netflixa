@@ -214,6 +214,8 @@ export default {
           this.$store.state.base_url + '/rest-auth/logout/', config
         )
         this.$store.commit('Logout')
+        this.$cookies.remove('auth-token')
+        this.$cookies.remove('username')
       } catch (err) {
         console.error(err)
       }
