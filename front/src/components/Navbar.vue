@@ -12,7 +12,7 @@
         <v-icon>mdi-logout</v-icon>
       </v-btn>
       <!-- login dialog -->
-      <v-dialog v-if="!isLoggedin" persistent max-width="600px">
+      <v-dialog v-if="!isLoggedin" v-model="login_dialog" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
             <v-icon color="white" large>mdi-account-circle</v-icon>
