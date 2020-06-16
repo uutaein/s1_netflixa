@@ -34,16 +34,22 @@ def detail(request, review_pk):
 @api_view(['POST'])
 def update(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    serializer = ReviewSerializer(data=request.data, instance=review)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        return Response(serializer.data)
+    if request.user == review.user:
+        serializer = ReviewSerializer(data=request.data, instance=review)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    else:
+        return Response({'message': '본인의 글만 수정할 수 있습니다.'})
 
 @api_view(['GET'])
 def delete(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    review.delete()
-    return Response({'message': 'review deleted'})
+    if request.user == review.user:
+        review.delete()
+        return Response({'message': 'review deleted'})
+    else:
+        return Response({'message': '본인의 글만 삭제할 수 있습니다.'})
 
 # review like
 @api_view(['GET'])
@@ -85,8 +91,11 @@ def update_comment(request, review_pk, comment_pk):
 @api_view(['GET'])
 def delete_comment(request, review_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    comment.delete()
-    return Response({'message': 'comment deleted'})
+    if request.user == comment.user:
+        comment.delete()
+        return Response({'message': 'comment deleted'})
+    else:
+        return Response({'message': '본인의 글만 삭제할 수 있습니다.'})
 
 
 #  score C,U,D
