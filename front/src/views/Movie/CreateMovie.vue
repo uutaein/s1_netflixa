@@ -132,7 +132,7 @@ export default {
         const baseUrl = this.$store.state.base_url
         const apiUrl = baseUrl + '/movies/' + 'create/'
         const res = await this.$http.post(apiUrl, this.movieData, config)
-        console.log(res)
+        this.$router.push({ name: 'MovieDetail', params: { id: res.data.id } })
       } catch (err) {
         console.error(err)
       }
