@@ -120,7 +120,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   data () {
@@ -130,7 +129,7 @@ export default {
       login_dialog: false,
       signup_dialog: false,
       // login 위한 정보
-      userid: '',
+      userid: null,
       loginData: {
         username: null,
         password: null
@@ -194,8 +193,9 @@ export default {
     },
     async getname () {
       try {
-        const res = axios.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/')
-        this.userid = res.data.id
+        const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/')
+        console.log(response.data)
+        this.userid = response.data.id
       } catch (err) {
         console.error(err)
       }
@@ -206,7 +206,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/login/',
           this.loginData
         )
-        this.getname()
+        await this.getname()
         this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid })
         this.$store.commit('usernameSave', this.loginData.username)
         this.$store.commit('useridSave', this.userid)
@@ -241,7 +241,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/signup/',
           this.signupData
         )
-        this.getname()
+        await this.getname()
         this.setCookie({ token: res.data.key, name: this.signupData.username, id: this.userid })
         this.$store.commit('usernameSave', this.signupData.username)
         this.$store.commit('useridSave', this.userid)
