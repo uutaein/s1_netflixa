@@ -5,6 +5,7 @@
       <v-row justify="center">
         <v-col cols="10" sm="10" md="10">
           <v-card class="d-inline-block-auto mx-auto mt-12">
+            <h1 class="ml-5">영화 추가</h1>
             <v-container>
               <v-row class="space-between">
                 <v-col cols="3">
@@ -23,7 +24,7 @@
                     type="text"
                     v-model="movieData.original_title"
                   ></v-text-field>
-                  <v-switch v-model="adult" class="mx-2" label="Adult"></v-switch>
+                  <v-switch v-model="movieData.adult" class="mx-2" label="Adult"></v-switch>
 
                   <v-menu
                     ref="menu"
@@ -76,11 +77,12 @@
 
                 <v-col cols="6">
                   <v-textarea solo name="input-7-4" label="줄거리를 적어주세요" v-model="movieData.overview"></v-textarea>
+                  <v-select chips v-bind:items="genre" v-model="movieData.genres" item-text="name" item-value="id" multiple hint="장르를 모두 선택해주세요"></v-select>
                 </v-col>
               </v-row>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="signup({signupData})" color="primary">영화 등록</v-btn>
+                <v-btn @click="createMovie()" text color="#1F8AD8">영화 등록</v-btn>
               </v-card-actions>
             </v-container>
           </v-card>
@@ -91,6 +93,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'CreateMovie',
   data () {
@@ -99,7 +103,7 @@ export default {
         title: '',
         original_title: '',
         release_date: new Date().toISOString().substr(0, 10),
-        adult: 'false',
+        adult: false,
         overview: '',
         original_language: '',
         poster_path: '',
@@ -109,20 +113,29 @@ export default {
       date_menu: false
     }
   },
+  computed: {
+    ...mapState(['genre'])
+  },
   methods: {
+
     async createMovie () {
+      console.log(this.$store.state.base_url)
       try {
-        const res = await this.$http.post(
-          this.$store.state.base_url + '/rest-auth/signup/',
-          this.signupData
-        )
-        this.setCookie(res.data.key)
-        this.$router.push({ name: 'Home' })
+        const config = {
+          headers: {
+            Authorization: `Token ${this.$cookies.get('auth-token')}`
+          }
+        }
+        const baseUrl = this.$store.state.base_url
+        const apiUrl = baseUrl + '/movies/' + 'create/'
+        const res = await this.$http.post(apiUrl, this.movieData, config)
+        console.log(res)
       } catch (err) {
         console.error(err)
       }
     }
   }
+
 }
 </script>
 

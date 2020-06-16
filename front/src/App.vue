@@ -21,7 +21,7 @@ export default {
   data: () => ({
     //
   }),
-  created () {
+  mounted () {
     this.$store.commit('urlSave', 'http://localhost:8000') // url 정해주기
     this.getGenre()
   },
