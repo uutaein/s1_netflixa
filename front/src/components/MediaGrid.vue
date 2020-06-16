@@ -1,9 +1,9 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm6 md4 lg3 v-for="movie in movies" :key="movie.id">
-      <v-card hover class="ma-3" min-height="500" max-height="700">
+      <v-card hover class="ma-3"  height="35vh">
         <v-layout column align-center fill-height class="text-center">
-          <v-img class="white--text align-end" :src="imageURL + movie.backdrop_path">
+          <v-img height="25vh" class="white--text align-end" :src="imageURL + movie.poster_path">
           <v-card-title class="font-weight-light" color="white">{{movie.title || movie.name}}</v-card-title>
           </v-img>
           <v-card-actions>
@@ -47,14 +47,4 @@ export default {
 </script>
 
 <style scoped>
-  .v-card:hover {
-    background: #E6F0F8;
-  }
-  .v-card:hover #synopsis {
-    /* background: #303030; */
-    background: #FCEEFB;
-  }
-  #synopsis {
-    background: #625265;
-  }
 </style>

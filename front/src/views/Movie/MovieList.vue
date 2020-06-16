@@ -7,9 +7,9 @@
       @vote_average="sortBy('vote_average')"
       @release_date="sortBy('release_date')"
     ></media-nav>
-    <media-grid :movies="movies" :imageURL="imageURL"></media-grid>
+    <media-grid :movies="paginatedData" :imageURL="imageURL"></media-grid>
     <div class="text-center" v-if="showPagination">
-      <v-pagination color="secondary" v-model="page" :length="3" :value="page"></v-pagination>
+      <v-pagination color="secondary" v-model="pageNum" :length="this.movieSize"></v-pagination>
     </div>
   </v-container>
 </template>
@@ -24,15 +24,17 @@ export default {
     mediaNav: MediaNav
   },
   props: {
-    pageSize: { type: Number, required: false, default: 6 }
+    pageSize: { type: Number, required: false, default: 40 }
   },
   data: function () {
     return {
       movies: [],
       pageTitle: '영화 목록',
+      imageURL: 'https://image.tmdb.org/t/p/w1280/',
       sortCriteria: 'Most Popular',
       sortedBy: 'popularity',
-      page: 1,
+      pageNum: 1,
+      movieSize: null,
       showPagination: false
     }
   },
@@ -40,7 +42,7 @@ export default {
     paginatedData () {
       const start = (this.pageNum - 1) * this.pageSize
       const end = start + this.pageSize
-      return this.posts.slice(start, end)
+      return this.movies.slice(start, end)
     }
   },
   methods: {
@@ -53,10 +55,10 @@ export default {
         for (const i of res.data) {
           i.created_at = String(i.created_at).substring(0, 10)
         }
-        const listLength = this.posts.length
+        const listLength = this.movies.length
         const listSize = this.pageSize
         const page = Math.floor((listLength - 1) / listSize) + 1
-        this.size = page
+        this.movieSize = page
       } catch (err) {
         console.error(err)
       } finally {
