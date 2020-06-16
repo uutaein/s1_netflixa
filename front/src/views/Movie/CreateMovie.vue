@@ -108,7 +108,10 @@ export default {
         original_language: '',
         poster_path: '',
         backdrop_path: '',
-        genres: []
+        genres: [],
+        popularity: 0,
+        vote_count: 0,
+        vote_average: 0
       },
       date_menu: false
     }
