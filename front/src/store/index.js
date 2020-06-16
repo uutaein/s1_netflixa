@@ -25,6 +25,8 @@ export default new Vuex.Store({
     },
     Logout (state) {
       state.isLoggedin = false
+      state.user_name = ''
+      state.user_id = ''
     }
   },
   actions: {

@@ -7,8 +7,12 @@
         <span>츄천츄천</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <span style="color: white" v-if="isLoggedin">{{ userCheck }} 님 환영합니다</span>
+      <v-btn v-if="isLoggedin" text color="white" @click="logout()">
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
       <!-- login dialog -->
-      <v-dialog v-model="login_dialog" persistent max-width="600px">
+      <v-dialog v-if="!isLoggedin" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
             <v-icon color="white" large>mdi-account-circle</v-icon>
@@ -166,16 +170,6 @@ export default {
           route: '/account'
         },
         {
-          icon: 'mdi-login',
-          text: '로그인',
-          route: '/login'
-        },
-        {
-          icon: 'mdi-account-edit',
-          text: '계정 만들기',
-          route: '/signup'
-        },
-        {
           icon: 'mdi-grease-pencil',
           text: '리뷰 남기기',
           route: '/reviews/create'
@@ -192,7 +186,6 @@ export default {
     setCookie (token) {
       this.$cookies.set('auth-token', token)
       this.$store.commit('Login')
-      this.$store.commit('usernameSave', this.username)
     },
     async login () {
       try {
@@ -201,11 +194,27 @@ export default {
           this.loginData
         )
         this.setCookie(res.data.key)
+        this.$store.commit('usernameSave', this.loginData.username)
         this.login_dialog = false
         this.loginFail = false
       } catch (err) {
         console.error(err)
         this.loginFail = true
+      }
+    },
+    async logout () {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
+      try {
+        await this.$http.post(
+          this.$store.state.base_url + '/rest-auth/logout/', config
+        )
+        this.$store.commit('Logout')
+      } catch (err) {
+        console.error(err)
       }
     },
     async signup () {
@@ -215,12 +224,21 @@ export default {
           this.signupData
         )
         this.setCookie(res.data.key)
+        this.$store.commit('usernameSave', this.signupData.username)
         this.signup_dialog = false
         this.signupFail = false
       } catch (err) {
         console.error(err)
         this.signupFail = true
       }
+    }
+  },
+  computed: {
+    isLoggedin () {
+      return this.$store.state.isLoggedin
+    },
+    userCheck () {
+      return this.$store.state.user_name
     }
   }
 }
