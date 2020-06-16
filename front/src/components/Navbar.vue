@@ -196,7 +196,7 @@ export default {
           this.loginData
         )
         console.log(res)
-        this.setCookie({ token: res.data.token, name: res.data.user.username, id: res.data.user.pk })
+        this.setCookie({ token: res.data.key, name: res.data.user.username, id: res.data.user.pk })
         this.$store.commit('usernameSave', this.loginData.username)
         this.$store.commit('useridSave', res.data.user.pk)
         this.login_dialog = false
@@ -230,7 +230,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/signup/',
           this.signupData
         )
-        this.setCookie({ token: res.data.token, name: res.data.user.username, id: res.data.user.pk })
+        this.setCookie({ token: res.data.key, name: res.data.user.username, id: res.data.user.pk })
         this.$store.commit('usernameSave', this.signupData.username)
         this.$store.commit('useridSave', res.data.user.pk)
         this.signup_dialog = false

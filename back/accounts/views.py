@@ -45,7 +45,11 @@ def follow(request, user_pk):
             return Response({'message': 'follow'})
     return Response({'message': '본인입니다.'})
 
-
+@api_view(['GET'])
+def getname(request, user_name):
+    user = get_object_or_404(User, username=user_name)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
 
 # @api_view(['POST'])
 # def update(request, user_pk):
