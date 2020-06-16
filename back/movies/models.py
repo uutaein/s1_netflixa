@@ -21,3 +21,6 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name = 'movies')
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
+
+    # def review_score(self):
+    #     return sum(self.reviews.score)/self.reviews.count()
