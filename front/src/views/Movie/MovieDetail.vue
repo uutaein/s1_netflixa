@@ -54,7 +54,7 @@ export default {
       is_liked: false,
       like_popup: false,
       like_timeout: 2000,
-      like_res: '시발'
+      like_res: ''
     }
   },
   mounted () {

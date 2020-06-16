@@ -15,8 +15,8 @@
             <v-img centered src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
           </v-avatar>
               <v-list-item-content>
-              <v-list-item-title class="title">Marcus Obrien</v-list-item-title>
-              <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
+              <v-list-item-title class="title">{{ userData }}</v-list-item-title>
+              <v-list-item-subtitle>직업</v-list-item-subtitle>
             </v-list-item-content>
           </v-card>
 
@@ -56,7 +56,29 @@
 
 <script>
 export default {
-
+  name: 'account',
+  data () {
+    return {
+      userData: {},
+      userID: ''
+    }
+  },
+  methods: {
+    async getDetail () {
+      const baseUrl = this.$store.state.base_url
+      const apiUrl = baseUrl + '/accounts/' + this.userID + '/'
+      try {
+        const res = await this.$http.get(apiUrl)
+        this.userdata = res.data
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  },
+  mounted () {
+    this.userID = this.$store.state.user_id
+    this.getDetail()
+  }
 }
 </script>
 
