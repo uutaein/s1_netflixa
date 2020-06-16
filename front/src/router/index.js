@@ -7,6 +7,7 @@ import Recommend from '@/views/Movie/Recommend.vue'
 import MovieList from '@/views/Movie/MovieList.vue'
 import CreateMovie from '@/views/Movie/CreateMovie.vue'
 import UpdateMovie from '@/views/Movie/UpdateMovie.vue'
+import MovieDetail from '@/views/Movie/MovieDetail.vue'
 
 // account
 import Account from '@/views/Accounts/Account.vue'
@@ -62,6 +63,11 @@ const routes = [
     path: '/movies/:id/update',
     name: 'UpdateMovie',
     component: UpdateMovie
+  },
+  {
+    path: '/movies/:id',
+    name: 'MovieDetail',
+    component: MovieDetail
   },
   {
     path: '/reviews',

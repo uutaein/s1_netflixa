@@ -6,7 +6,7 @@
           <v-row class="createuser px-3" align="center">
             <div>작성자 : <span class="font-weight-black">{{user}}</span></div>
             <v-spacer></v-spacer>
-            <v-btn @click="createComment()" color="primary" text icon>
+            <v-btn @click="createComment()" color="primary" tile icon>
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </v-row>
