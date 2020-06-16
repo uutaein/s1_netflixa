@@ -15,6 +15,7 @@
           ></v-rating>
           <v-card-actions>
           <v-btn text color="#FBA285" :to=" '/movies/' + movie.id">DETAIL</v-btn>
+          <v-btn text color="#FBA285" :to=" '/movies/' + movie.id + '/update/' ">UPDATE</v-btn>
           </v-card-actions>
         </v-layout>
       </v-card>
