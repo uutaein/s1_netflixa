@@ -12,7 +12,7 @@
             sm="10"
             md="10"
           >
-            <v-card class="mt-12" height="50vh">
+            <v-card>
               <v-toolbar
                 color="primary"
                 dark
