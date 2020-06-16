@@ -120,6 +120,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -186,8 +188,13 @@ export default {
     setCookie (token) {
       this.$cookies.set('auth-token', token.token)
       this.$cookies.set('username', token.name)
-      // this.$cookies.set('userid', token.id)
+      this.$cookies.set('userid', token.id)
       this.$store.commit('Login')
+    },
+    getname () {
+      axios.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/')
+        .then(res => { this.setCookie({ id: res.data.id }) })
+        .catch(err => console.error(err))
     },
     async login () {
       try {
@@ -196,9 +203,10 @@ export default {
           this.loginData
         )
         console.log(res)
+        this.getname()
         this.setCookie({ token: res.data.key, name: this.loginData.username })
         this.$store.commit('usernameSave', this.loginData.username)
-        // this.$store.commit('useridSave', res.data.user.pk)
+        this.$store.commit('useridSave', res.data.id)
         this.login_dialog = false
         this.loginFail = false
       } catch (err) {
