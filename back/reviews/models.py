@@ -6,7 +6,7 @@ from movies.models import Movie
 class Review(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    # score = models.IntegerField()
+    score = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -25,4 +25,11 @@ class Comment(models.Model):
 class Score(models.Model):
     movie_score = models.IntegerField()
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='scores')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='scores')
+
+    @classmethod
+    def dummy(cls, n):
+        for _ in range(n):
+            cls.objects.create(
+                movie_score = n,
+            )
