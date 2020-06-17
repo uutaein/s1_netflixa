@@ -1,18 +1,11 @@
 <template>
   <v-container>
     <v-flex class="pa-7">
-      <div>
-        <v-card>
-          <v-layout column align-center fill-width class="text-left">
-          <v-img :src="imageURL + movie.backdrop_path" class="white--text align-end" height="30vh">
-            <v-card-title class="font-weight-light" large color="white">{{movie.title || movie.name}}</v-card-title>
-          </v-img>
-          <h1 class="ml-3">{{movie.title}}</h1>
-          <v-spacer></v-spacer>
-          <v-btn
-            @click="like_movie()"
-            icon
-          >
+      <v-card>
+        <v-img :src="imageURL + movie.backdrop_path" class="white--text align-end" height="30vh"></v-img>
+        <v-row>
+          <h1 class="ml-8">{{movie.title}}</h1>
+          <v-btn text @click="like_movie()" icon large>
             <v-snackbar v-model="like_popup" :timeout="like_timeout">
               {{ like_res }}
               <template v-slot:action="{ attr }">
@@ -21,30 +14,40 @@
             </v-snackbar>
             <v-icon medium :color="heart_color">mdi-heart</v-icon>
           </v-btn>
-          </v-layout>
-        </v-card>
-        <v-row class="px-3">
-          <span class="borderP">개봉일: {{movie.release_date}}</span>
-          <span class="borderP">평점: {{movie.vote_average}}</span>
         </v-row>
-      </div>
-      <v-divider class="minDiv mt-2 mb-5"></v-divider>
-      <div>
-        <div>
-          <xmp>{{movie.overview}}</xmp>
-          <br />
+        <v-spacer></v-spacer>
+        <v-row class="px-3 ml-3">
+          <p class="borderP">개봉일: {{movie.release_date}}</p>
+          <v-rating
+            v-model="movie.half_rate"
+            half-increments
+            readonly
+            medium
+            background-color="#F6D985"
+            color="#F6D985"
+          ></v-rating>
+          <v-chip-group>
+            <v-chip outlined pill v-for="movie in movie_genre" :key="movie">{{ movie }}</v-chip>
+          </v-chip-group>
+        </v-row>
+        <v-divider class="minDiv mt-2 mb-5"></v-divider>
+        <div class="ml-3" style="height : 20vh">
+          <h3>줄거리</h3>
+          {{movie.overview}}
         </div>
         <v-divider class="minDiv mb-5"></v-divider>
         <div class="d-flex justify-end">
-          <v-btn :to="'/reviews/create/' + id" color="#74B4A0" dark>리뷰쓰기</v-btn>
-          <v-btn to="/movies" color="#74B4A0" dark>목록으로</v-btn>
+          <v-btn x-large text :to="'/reviews/create/' + id" color="#74B4A0" dark>리뷰쓰기</v-btn>
+          <v-btn x-large text to="/movies/" color="#74B4A0">목록으로</v-btn>
         </div>
-      </div>
+      </v-card>
     </v-flex>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'MovieDetail',
   data () {
@@ -56,12 +59,16 @@ export default {
       like_popup: false,
       like_timeout: 2000,
       like_res: '',
-      heart_color: 'gray'
+      heart_color: 'gray',
+      movie_genre: []
     }
   },
   mounted () {
     this.id = this.$route.params.id
     this.getDetail()
+  },
+  computed: {
+    ...mapState(['genre'])
   },
   methods: {
     async getDetail () {
@@ -73,8 +80,19 @@ export default {
           this.is_liked = true
           this.heart_color = 'pink'
         }
+        // 장르 배열에 넣기
+        for (const i of res.data.genres) {
+          const idx = this.genre.findIndex(x => x.id === i)
+          console.log(this.genre[idx].name)
+          this.movie_genre.push(this.genre[idx].name)
+        }
+        /// end of 장르 배열에 넣기
+        res.data.half_rate = res.data.vote_average / 2
         this.movie = res.data
-        this.$store.commit('selectedMovie', { title: this.movie.title, src: this.imageURL + this.movie.poster_path })
+        this.$store.commit('selectedMovie', {
+          title: this.movie.title,
+          src: this.imageURL + this.movie.poster_path
+        })
       } catch (err) {
         console.error(err)
       }
