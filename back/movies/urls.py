@@ -13,7 +13,8 @@ urlpatterns = [
     # movies Like
     path('<int:movie_pk>/like/', views.like, name='like'),
     # recommend movie
-    path('recommend/', views.recommend, name='recommend')
+    path('recommend/', views.recommend, name='recommend'),
+    path('favorites/', views.favorites, name='favorites')
 ]
 
 # movie 도 list, detail 이렇게 간단하게 쓸 지?

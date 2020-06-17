@@ -98,3 +98,16 @@ def recommend(request):
     favorites_serializer3 = MovieListSerializer(movies3, many=True)
 
     return Response(favorites_serializer1.data)
+
+@api_view(['GET'])
+def favorites(request):
+    favorite = []
+    User = get_user_model()
+    user = get_object_or_404(User, pk=request.user.pk)
+    serializer = UserSerializer(user)
+    movies= []
+    for movie_id in serializer.data['like_movies']:
+        movie = get_object_or_404(Movie, pk=movie_id)
+        movie_serializer = MovieSerializer(movie)
+        movies.append(movie_serializer.data)
+    return Response(movies)
