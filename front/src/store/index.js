@@ -9,6 +9,7 @@ export default new Vuex.Store({
     user_name: '',
     base_url: '',
     isLoggedin: false,
+    isSuperUser: false,
     genre: ''
   },
   mutations: {

@@ -129,6 +129,7 @@ export default {
       signup_dialog: false,
       // login 위한 정보
       userid: null,
+      userRank: null,
       loginData: {
         username: null,
         password: null
@@ -194,7 +195,8 @@ export default {
       try {
         const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/getname/')
         console.log(response.data)
-        this.userid = response.data.id
+        this.$store.user_id = response.data.id
+        this.$store.isSuperUser = response.data.isSuperUser
       } catch (err) {
         console.error(err)
       }
@@ -207,7 +209,7 @@ export default {
         )
         console.log(res)
         await this.getname()
-        this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid })
+        this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid, rank: this.userRank })
         this.$store.commit('usernameSave', this.loginData.username)
         this.$store.commit('useridSave', this.userid)
         this.login_dialog = false
