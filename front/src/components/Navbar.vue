@@ -129,7 +129,7 @@ export default {
       signup_dialog: false,
       // login 위한 정보
       userid: null,
-      userRank: null,
+      isSuper: false,
       loginData: {
         username: null,
         password: null
@@ -155,16 +155,10 @@ export default {
           text: '최고의 영화들'
           // route: '/top-rated-movies'
         },
-
         {
           icon: 'mdi-video-vintage',
           text: '영화 목록',
           route: '/movies'
-        },
-        {
-          icon: 'mdi-film',
-          text: '영화 추가',
-          route: '/movies/create'
         },
         {
           icon: 'mdi-account-circle',
@@ -195,8 +189,16 @@ export default {
       try {
         const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/getname/')
         console.log(response.data)
-        this.$store.user_id = response.data.id
-        this.$store.isSuperUser = response.data.isSuperUser
+        this.isSuper = response.data.is_superuser
+        if (this.isSuper === true) {
+          this.links.push({
+            icon: 'mdi-film',
+            text: '영화 추가',
+            route: '/movies/create'
+          })
+        }
+        this.$store.commit('userRank', response.data.is_superuser)
+        this.$store.commit('useridSave', response.data.id)
       } catch (err) {
         console.error(err)
       }
@@ -211,7 +213,6 @@ export default {
         await this.getname()
         this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid, rank: this.userRank })
         this.$store.commit('usernameSave', this.loginData.username)
-        this.$store.commit('useridSave', this.userid)
         this.login_dialog = false
         this.loginFail = false
       } catch (err) {
@@ -232,7 +233,6 @@ export default {
         this.$store.commit('Logout')
         this.$cookies.remove('auth-token')
         this.$cookies.remove('username')
-        this.$cookies.remove('userid')
       } catch (err) {
         console.error(err)
       }
@@ -246,7 +246,6 @@ export default {
         await this.getname()
         this.setCookie({ token: res.data.key, name: this.signupData.username, id: this.userid })
         this.$store.commit('usernameSave', this.signupData.username)
-        this.$store.commit('useridSave', this.userid)
         this.signup_dialog = false
         this.signupFail = false
       } catch (err) {

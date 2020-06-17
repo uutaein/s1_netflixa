@@ -22,6 +22,9 @@ export default new Vuex.Store({
     useridSave (state, userID) {
       state.user_id = userID
     },
+    userRank (state, rank) {
+      state.isSuperUser = rank
+    },
     Login (state) {
       state.isLoggedin = true
     },
