@@ -3,26 +3,18 @@
   <div>
     <section id='top'>
       <v-row class="px-3" align="center">
-        <h1 class="mb-3 gamjaFont">리뷰 목록</h1>
-        <v-spacer></v-spacer>
-        <v-btn
-        v-if=" this.$store.state.isLoggedin "
-        to= "/reviews/create"
-        text
-        icon
-        >
-          <v-icon color="#74b4a0">mdi-pencil-plus</v-icon>
-        </v-btn>
+      <h1 class="mt-7 ml-4 display-1 font-weight-light">영화 리뷰</h1>
+      <h5 class="font-weight-light"></h5>
       </v-row>
       <v-divider id='topdivider'></v-divider>
       <v-row class="d-none d-md-flex font-weight-black px-3">
         <v-col cols='2'>번호</v-col>
-        <v-col cols='6'>내용</v-col>
+        <v-col cols='6'>제목</v-col>
         <v-col cols='2'>작성일시</v-col>
         <v-col cols='2'>작성자</v-col>
       </v-row>
       <v-row class="d-flex d-md-none font-weight-black px-3">
-        <v-col cols='8'>내용</v-col>
+        <v-col cols='8'>제목</v-col>
         <v-col cols='4'>작성자</v-col>
       </v-row>
     </section>
@@ -39,7 +31,7 @@
             <v-col cols='2'>{{post.id}} </v-col>
             <v-col cols='6'>{{post.title}}</v-col>
             <v-col cols='2'>{{post.created_at}} </v-col>
-            <v-col cols='2'>{{post.username}}</v-col>
+            <v-col cols='2'>{{post.user.username}}</v-col>
           </v-row>
           <v-row class="d-flex d-md-none px-3">
             <v-col class="text-truncate" cols='8'>{{post.title}}</v-col>
@@ -86,6 +78,7 @@ export default {
       const apiUrl = baseUrl + '/reviews/'
       this.$http.get(apiUrl)
         .then(res => {
+          console.log(res)
           this.posts = res.data
           for (const i of res.data) {
             i.created_at = String(i.created_at).substring(0, 10)

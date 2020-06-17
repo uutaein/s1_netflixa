@@ -15,7 +15,7 @@
           ></v-rating>
           <v-card-actions>
           <v-btn text color="#FBA285" :to=" '/movies/' + movie.id">DETAIL</v-btn>
-          <v-btn text color="#FBA285" :to=" '/movies/' + movie.id + '/update/' ">UPDATE</v-btn>
+          <v-btn v-if="update_permition" text color="#FBA285" :to=" '/movies/' + movie.id + '/update/' ">UPDATE</v-btn>
           </v-card-actions>
         </v-layout>
       </v-card>
@@ -28,7 +28,7 @@ export default {
   props: ['movies', 'imageURL'],
   data () {
     return {
-
+      update_permition: this.$store.state.isSuperUser
     }
   }
 }

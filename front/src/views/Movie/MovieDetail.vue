@@ -74,6 +74,7 @@ export default {
           this.heart_color = 'pink'
         }
         this.movie = res.data
+        this.$store.commit('selectedMovie', { title: this.movie.title, src: this.imageURL + this.movie.poster_path })
       } catch (err) {
         console.error(err)
       }
