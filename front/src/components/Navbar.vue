@@ -146,19 +146,9 @@ export default {
       links: [
         { icon: 'mdi-home', text: 'Home', route: '/' },
         {
-          icon: 'mdi-filmstrip',
-          text: '영화 추천받기',
-          route: '/recommend'
-        },
-        {
           icon: 'mdi-video-vintage',
           text: '영화 목록',
           route: '/movies'
-        },
-        {
-          icon: 'mdi-account-circle',
-          text: '내 계정',
-          route: '/account'
         },
         {
           icon: 'mdi-comment-text-multiple-outline',
@@ -174,6 +164,20 @@ export default {
       this.$cookies.set('username', token.name)
       // this.$cookies.set('userid', token.id)
       this.$store.commit('Login')
+      this.links.push(
+        {
+          icon: 'mdi-filmstrip',
+          text: '영화 추천받기',
+          route: '/recommend'
+        }
+      )
+      this.links.push(
+        {
+          icon: 'mdi-account-circle',
+          text: '내 계정',
+          route: '/account'
+        }
+      )
     },
     async getname () {
       try {
@@ -225,7 +229,13 @@ export default {
         this.$cookies.remove('auth-token')
         this.$cookies.remove('username')
         if (this.isSuper === true) {
-          this.links.pop()
+          for (let i = 0; i < 3; i++) {
+            this.links.pop()
+          }
+        } else {
+          for (let i = 0; i < 2; i++) {
+            this.links.pop()
+          }
         }
       } catch (err) {
         console.error(err)
