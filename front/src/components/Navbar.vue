@@ -205,6 +205,7 @@ export default {
           this.$store.state.base_url + '/rest-auth/login/',
           this.loginData
         )
+        console.log(res)
         await this.getname()
         this.setCookie({ token: res.data.key, name: this.loginData.username, id: this.userid })
         this.$store.commit('usernameSave', this.loginData.username)

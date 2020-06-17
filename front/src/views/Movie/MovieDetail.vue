@@ -69,6 +69,10 @@ export default {
       const apiUrl = baseUrl + '/movies/' + this.id + '/'
       try {
         const res = await this.$http.get(apiUrl)
+        if (res.data.like_users.includes(this.$store.state.user_id)) {
+          this.is_liked = true
+          this.heart_color = 'pink'
+        }
         this.movie = res.data
       } catch (err) {
         console.error(err)
