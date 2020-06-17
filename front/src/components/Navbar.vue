@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar color="#625265" app flat>
+    <v-app-bar color="#0A0A0D" app flat>
       <v-app-bar-nav-icon id="drawerIcon" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase white--text">
         <span class="font-weight-light">NATFLIXA</span>
@@ -99,7 +99,7 @@
       </v-dialog>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" color="#B59AC5">
+    <v-navigation-drawer app v-model="drawer" color="#9E1C20">
       <v-layout column align-center>
         <v-flex class="my-5"></v-flex>
       </v-layout>
