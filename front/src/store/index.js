@@ -9,6 +9,7 @@ export default new Vuex.Store({
     user_name: '',
     base_url: '',
     isLoggedin: false,
+    isSuperUser: false,
     genre: ''
   },
   mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     useridSave (state, userID) {
       state.user_id = userID
+    },
+    userRank (state, rank) {
+      state.isSuperUser = rank
     },
     Login (state) {
       state.isLoggedin = true

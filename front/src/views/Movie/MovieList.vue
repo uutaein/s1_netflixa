@@ -7,7 +7,7 @@
       @vote_average="sortBy('vote_average')"
       @release_date="sortBy('release_date')"
     ></media-nav>
-    <media-grid :movies="paginatedData" :imageURL="imageURL"></media-grid>
+    <media-grid :movies="paginatedData" ></media-grid>
     <div class="text-center" v-if="showPagination">
       <v-pagination color="secondary" v-model="pageNum" :length="this.movieSize"></v-pagination>
     </div>
@@ -54,9 +54,10 @@ export default {
         for (const i of res.data) {
           i.created_at = String(i.created_at).substring(0, 10)
           i.half_rate = i.vote_average / 2
+          i.poster_path = this.imageURL + i.poster_path
+          i.backdrop_path = this.imageURL + i.backdrop_path
         }
         this.movies = res.data
-        console.log(this.movies)
         const listLength = this.movies.length
         const listSize = this.pageSize
         const page = Math.floor((listLength - 1) / listSize) + 1
