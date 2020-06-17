@@ -3,8 +3,7 @@
     <v-app-bar color="#625265" app flat>
       <v-app-bar-nav-icon id="drawerIcon" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase white--text">
-        <span class="font-weight-light">영화</span>
-        <span>츄천츄천</span>
+        <span class="font-weight-light">NATFLIXA</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <span style="color: white" v-if="isLoggedin">{{ userCheck }} 님 환영합니다</span>
