@@ -10,7 +10,10 @@ export default new Vuex.Store({
     base_url: '',
     isLoggedin: false,
     isSuperUser: false,
-    genre: ''
+    genre: '',
+    // movie -> review list 를 위한 변수
+    selectedMovie: '',
+    selectedMovieSrc: ''
   },
   mutations: {
     urlSave (state, url) {
@@ -40,7 +43,12 @@ export default new Vuex.Store({
     },
     GetGenre (state, genreData) {
       state.genre = genreData
+    },
+    selectedMovie (state, movieName) {
+      state.selectedMovie = movieName.title
+      state.selectedMovieSrc = movieName.src
     }
+
   },
   actions: {
 
