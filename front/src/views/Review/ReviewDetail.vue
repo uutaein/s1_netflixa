@@ -23,18 +23,20 @@
           </v-btn>
         </v-row>
         <v-row class="px-3">
-          <span class="borderP">작성일: {{post.created_at}}</span>
+          <span class="borderP">작성일: {{post.updated_at}}</span>
           <span class="borderP">작성자: {{post.user.username}}</span>
         </v-row>
       </div>
       <v-divider class="minDiv mt-2 mb-5"></v-divider>
       <div>
-        <div>
+        <div style="height: 25vh">
           <xmp>{{post.content}}</xmp>
           <br />
         </div>
         <v-divider class="minDiv mb-5"></v-divider>
         <div class="d-flex justify-end">
+          <v-btn :to=" '/movies/' + post.movie">영화 정보 보기 </v-btn>
+          <v-spacer></v-spacer>
           <v-btn
             v-if="this.$store.state.user_name === post.user.username"
             @click="$router.push({ name: 'UpdateReview', params: { id: post.id }})"
@@ -86,8 +88,9 @@ export default {
       this.$http
         .get(apiUrl)
         .then(res => {
-          const createdAt = res.data.created_at
-          res.data.created_at =
+          console.log(res)
+          const createdAt = res.data.updated_at
+          res.data.updated_at =
             createdAt.substring(0, 4) +
             '년 ' +
             createdAt.substring(5, 7) +
