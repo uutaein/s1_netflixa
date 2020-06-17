@@ -82,6 +82,7 @@
               </v-row>
               <v-card-actions>
                 <v-spacer></v-spacer>
+                <v-btn @click="deleteMovie()" text color="#FBA285">영화 삭제</v-btn>
                 <v-btn @click="updateMovie()" text color="#1F8AD8">수정하기</v-btn>
               </v-card-actions>
             </v-container>
@@ -156,6 +157,21 @@ export default {
         const apiUrl = baseUrl + '/movies/' + this.id + '/update/'
         await this.$http.post(apiUrl, this.movieData, config)
         this.$router.push({ name: 'MovieDetail', params: { id: this.id } })
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async deleteMovie () {
+      const baseUrl = this.$store.state.base_url
+      const apiUrl = baseUrl + '/movies/' + this.id + '/delete/'
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
+      try {
+        await this.$http.get(apiUrl, config)
+        this.$router.go(-1)
       } catch (err) {
         console.error(err)
       }
