@@ -16,10 +16,22 @@
           </v-avatar>
               <v-list-item-content>
               <v-list-item-title class="title">{{ userData.username }}</v-list-item-title>
-              <v-list-item-subtitle>직업</v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <v-btn
+                @click="follow()"
+                icon
+              >
+                <v-snackbar v-model="follow_popup" :timeout="follow_timeout">
+                  {{ follow_res }}
+                  <template v-slot:action="{ attr }">
+                    <v-btn color="indigo" text v-bind="attr" @click="follow_popup = false">Close</v-btn>
+                  </template>
+                </v-snackbar>
+                <v-icon medium :color="heart_color">mdi-heart</v-icon>
+              </v-btn>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-card>
-
         </v-col>
         <v-col cols="8">
           <v-card height='84vh'>
@@ -59,7 +71,13 @@ export default {
   name: 'account',
   data () {
     return {
-      userData: {}
+      userData: {},
+      user: this.$store.state.user_name,
+      is_followed: false,
+      follow_popup: false,
+      follow_timeout: 2000,
+      follow_res: '',
+      heart_color: 'gray'
     }
   },
   methods: {
@@ -71,6 +89,31 @@ export default {
         this.userData = res.data
       } catch (err) {
         console.error(err)
+      }
+    },
+    async follow () {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get('auth-token')}`
+        }
+      }
+      const baseUrl = this.$store.state.base_url
+      const apiUrl = baseUrl + '/accounts/' + this.userData.id + '/follow/'
+      try {
+        await this.$http.get(apiUrl, config)
+        this.is_followed = !this.is_followed
+        if (this.is_followed === true) {
+          this.follow_res = '팔로우 하셨습니다'
+          this.heart_color = 'pink'
+        } else {
+          this.follow_res = '팔로우 취소 하셨습니다'
+          this.heart_color = 'gray'
+        }
+      } catch (err) {
+        console.error(err)
+        this.follow_res = '에러가 발생했습니다. 나중에 다시 시도하세요'
+      } finally {
+        this.follow_popup = true
       }
     }
   },
