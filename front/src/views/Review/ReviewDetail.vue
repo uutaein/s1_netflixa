@@ -41,17 +41,17 @@
             v-if="this.$store.state.user_name === post.user.username"
             @click="$router.push({ name: 'UpdateReview', params: { id: post.id }})"
             class="mr-3"
-            color="light-blue"
+            color="#548BA1"
             dark
           >수정</v-btn>
           <v-btn
             v-if="this.$store.state.user_name === post.user.username"
             @click="deleteDetail()"
             class="mr-3"
-            color="pink"
+            color="#EA787E"
             dark
           >삭제</v-btn>
-          <v-btn to="/reviews" color="#74B4A0" dark>목록으로</v-btn>
+          <v-btn to="/reviews" color="#548BA1" dark>목록으로</v-btn>
         </div>
       </div>
       <Comment class="mt-10"></Comment>
