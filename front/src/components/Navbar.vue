@@ -189,6 +189,7 @@ export default {
       try {
         const response = await this.$http.get(this.$store.state.base_url + '/accounts/' + this.loginData.username + '/getname/')
         console.log(response.data)
+
         this.isSuper = response.data.is_superuser
         if (this.isSuper === true) {
           this.links.push({
@@ -233,6 +234,9 @@ export default {
         this.$store.commit('Logout')
         this.$cookies.remove('auth-token')
         this.$cookies.remove('username')
+        if (this.isSuper === true) {
+          this.links.pop()
+        }
       } catch (err) {
         console.error(err)
       }

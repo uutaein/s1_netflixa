@@ -63,7 +63,8 @@ export default {
     return {
       reviewData: {
         title: null,
-        content: null
+        content: null,
+        score: 5
       }
     }
   },
