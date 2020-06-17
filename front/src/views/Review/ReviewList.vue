@@ -3,16 +3,8 @@
   <div>
     <section id='top'>
       <v-row class="px-3" align="center">
-        <h1 class="mb-3 gamjaFont">리뷰 목록</h1>
-        <v-spacer></v-spacer>
-        <v-btn
-        v-if=" this.$store.state.isLoggedin "
-        to= "/reviews/create"
-        text
-        icon
-        >
-          <v-icon color="#74b4a0">mdi-pencil-plus</v-icon>
-        </v-btn>
+      <h1 class="mt-7 ml-4 display-1 font-weight-light">영화 리뷰</h1>
+      <h5 class="font-weight-light"></h5>
       </v-row>
       <v-divider id='topdivider'></v-divider>
       <v-row class="d-none d-md-flex font-weight-black px-3">
