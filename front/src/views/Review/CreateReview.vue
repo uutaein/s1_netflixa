@@ -19,7 +19,7 @@
                   class="mt-12"
                   readonly
                   disabled
-                  v-model="reviewData.movieTitle"
+                  v-model="reviewData.movietitle"
                 ></v-text-field>
                 <v-text-field
                   label="글 제목"
@@ -30,7 +30,7 @@
                   v-model="reviewData.title"
                   required
                 ></v-text-field>
-                <v-rating v-model="reviewData.score" length="10" background-color="pink lighten-2" small color="pink"></v-rating>
+                <v-rating v-model="reviewData.score" length="10" background-color="#F6D985" small color="#F6D985"></v-rating>
                 <div>
                   <span class="caption">평점</span>
                   <span class="font-weight-bold">{{ reviewData.score }}</span>
@@ -68,7 +68,7 @@ export default {
         title: null,
         content: null,
         score: 5,
-        movieTitle: this.$store.state.selectedMovie
+        movietitle: this.$store.state.selectedMovie
       },
       movieSrc: this.$store.state.selectedMovieSrc
     }

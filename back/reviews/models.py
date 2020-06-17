@@ -5,6 +5,7 @@ from movies.models import Movie
 # Create your models here.
 class Review(models.Model):
     title = models.CharField(max_length=200)
+    movietitle = models.CharField(max_length=200)
     content = models.TextField()
     score = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
