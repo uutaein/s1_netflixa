@@ -8,10 +8,11 @@
       </v-row>
       <v-divider id='topdivider'></v-divider>
       <v-row class="d-none d-md-flex font-weight-black px-3">
-        <v-col cols='2'>번호</v-col>
+        <v-col cols='3'>영화</v-col>
         <v-col cols='6'>제목</v-col>
-        <v-col cols='2'>작성일시</v-col>
-        <v-col cols='2'>작성자</v-col>
+        <v-col cols='1'>작성일시</v-col>
+        <v-col cols='1'>작성자</v-col>
+        <v-col cols="1">평점</v-col>
       </v-row>
       <v-row class="d-flex d-md-none font-weight-black px-3">
         <v-col cols='8'>제목</v-col>
@@ -28,10 +29,11 @@
         block
         >
           <v-row class="d-none d-md-flex px-3">
-            <v-col cols='2'>{{post.id}} </v-col>
+            <v-col cols='3'>{{post.movietitle}} </v-col>
             <v-col cols='6'>{{post.title}}</v-col>
-            <v-col cols='2'>{{post.created_at}} </v-col>
-            <v-col cols='2'>{{post.user.username}}</v-col>
+            <v-col cols='1'>{{post.created_at}} </v-col>
+            <v-col cols='1'>{{post.user.username}}</v-col>
+            <v-col cols="1">{{post.score}}</v-col>
           </v-row>
           <v-row class="d-flex d-md-none px-3">
             <v-col class="text-truncate" cols='8'>{{post.title}}</v-col>
@@ -52,7 +54,7 @@
 export default {
   name: 'ReviewList',
   props: {
-    pageSize: { type: Number, required: false, default: 6 }
+    pageSize: { type: Number, required: false, default: 12 }
   },
   data () {
     return {

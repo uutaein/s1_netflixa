@@ -151,11 +151,6 @@ export default {
           route: '/recommend'
         },
         {
-          icon: 'mdi-trophy',
-          text: '최고의 영화들'
-          // route: '/top-rated-movies'
-        },
-        {
           icon: 'mdi-video-vintage',
           text: '영화 목록',
           route: '/movies'
@@ -166,13 +161,8 @@ export default {
           route: '/account'
         },
         {
-          icon: 'mdi-grease-pencil',
-          text: '리뷰 남기기',
-          route: '/reviews/create'
-        },
-        {
           icon: 'mdi-comment-text-multiple-outline',
-          text: '리뷰 보기',
+          text: '리뷰 게시판',
           route: '/reviews'
         }
       ]

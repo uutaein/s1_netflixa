@@ -3,6 +3,9 @@
     <v-flex class="pa-7">
       <div>
         <v-row>
+          <h5>{{ post.movietitle }}</h5>
+          </v-row>
+          <v-row>
           <h1 class="ml-3">{{post.title}}</h1>
           <v-spacer></v-spacer>
           <v-btn
