@@ -58,7 +58,6 @@ export default {
           i.backdrop_path = this.imageURL + i.backdrop_path
         }
         this.movies = res.data
-        console.log(this.movies)
         const listLength = this.movies.length
         const listSize = this.pageSize
         const page = Math.floor((listLength - 1) / listSize) + 1
