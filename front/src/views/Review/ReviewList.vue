@@ -9,12 +9,12 @@
       <v-divider id='topdivider'></v-divider>
       <v-row class="d-none d-md-flex font-weight-black px-3">
         <v-col cols='2'>번호</v-col>
-        <v-col cols='6'>내용</v-col>
+        <v-col cols='6'>제목</v-col>
         <v-col cols='2'>작성일시</v-col>
         <v-col cols='2'>작성자</v-col>
       </v-row>
       <v-row class="d-flex d-md-none font-weight-black px-3">
-        <v-col cols='8'>내용</v-col>
+        <v-col cols='8'>제목</v-col>
         <v-col cols='4'>작성자</v-col>
       </v-row>
     </section>
@@ -31,7 +31,7 @@
             <v-col cols='2'>{{post.id}} </v-col>
             <v-col cols='6'>{{post.title}}</v-col>
             <v-col cols='2'>{{post.created_at}} </v-col>
-            <v-col cols='2'>{{post.username}}</v-col>
+            <v-col cols='2'>{{post.user.username}}</v-col>
           </v-row>
           <v-row class="d-flex d-md-none px-3">
             <v-col class="text-truncate" cols='8'>{{post.title}}</v-col>
@@ -78,6 +78,7 @@ export default {
       const apiUrl = baseUrl + '/reviews/'
       this.$http.get(apiUrl)
         .then(res => {
+          console.log(res)
           this.posts = res.data
           for (const i of res.data) {
             i.created_at = String(i.created_at).substring(0, 10)
