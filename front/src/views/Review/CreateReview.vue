@@ -8,7 +8,7 @@
             <h1 class="ml-5">리뷰 남기기</h1>
             <v-row>
               <v-col cols="4">
-                <v-img class="ml-12" :src="movieSrc" height="35vh" width="30vh"></v-img>
+                <v-img class="ml-12" :src="reviewData.moviesrc" height="35vh" width="30vh"></v-img>
               </v-col>
               <v-col cols="8">
                 <v-text-field
@@ -50,7 +50,7 @@
             <!-- <v-select chips v-bind:items="genre" v-model="movieData.genres" item-text="name" item-value="id" multiple hint="장르를 모두 선택해주세요"></v-select> -->
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click="createReview()" text color="#1F8AD8">영화 등록</v-btn>
+              <v-btn @click="createReview()" text color="#1F8AD8">리뷰 등록</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -68,9 +68,9 @@ export default {
         title: null,
         content: null,
         score: 5,
-        movietitle: this.$store.state.selectedMovie
-      },
-      movieSrc: this.$store.state.selectedMovieSrc
+        movietitle: this.$store.state.selectedMovie,
+        moviesrc: this.$store.state.selectedMovieSrc
+      }
     }
   },
   mounted () {
