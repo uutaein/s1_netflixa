@@ -2,7 +2,7 @@
   <v-container>
     <v-flex class="pa-7">
       <v-card>
-        <v-img :src="imageURL + movie.backdrop_path" class="white--text align-end" height="30vh"></v-img>
+        <v-img :src="movie.backdrop_path" class="white--text align-end" height="30vh"></v-img>
         <v-row>
           <h1 class="ml-8">{{movie.title}}</h1>
           <v-btn text @click="like_movie()" icon large>
@@ -89,9 +89,13 @@ export default {
         /// end of 장르 배열에 넣기
         res.data.half_rate = res.data.vote_average / 2
         this.movie = res.data
+        if (this.movie.popularity !== 0) {
+          this.movie.poster_path = this.imageURL + this.movie.poster_path
+          this.movie.backdrop_path = this.imageURL + this.movie.backdrop_path
+        }
         this.$store.commit('selectedMovie', {
           title: this.movie.title,
-          src: this.imageURL + this.movie.poster_path
+          src: this.movie.poster_path
         })
       } catch (err) {
         console.error(err)

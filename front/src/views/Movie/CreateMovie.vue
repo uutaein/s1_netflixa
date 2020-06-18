@@ -122,7 +122,6 @@ export default {
   methods: {
 
     async createMovie () {
-      console.log(this.$store.state.base_url)
       try {
         const config = {
           headers: {

@@ -16,8 +16,8 @@ class Movie(models.Model):
     adult = models.BooleanField()
     overview = models.TextField()
     original_language = models.CharField(max_length=300)
-    poster_path = models.CharField(max_length=300)
-    backdrop_path = models.CharField(max_length=300)
+    poster_path = models.TextField()
+    backdrop_path = models.TextField()
     genres = models.ManyToManyField(Genre, related_name = 'movies')
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
