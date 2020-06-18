@@ -54,8 +54,10 @@ export default {
         for (const i of res.data) {
           i.created_at = String(i.created_at).substring(0, 10)
           i.half_rate = i.vote_average / 2
-          i.poster_path = this.imageURL + i.poster_path
-          i.backdrop_path = this.imageURL + i.backdrop_path
+          if (i.popularity !== 0) {
+            i.poster_path = this.imageURL + i.poster_path
+            i.backdrop_path = this.imageURL + i.backdrop_path
+          }
         }
         this.movies = res.data
         const listLength = this.movies.length
